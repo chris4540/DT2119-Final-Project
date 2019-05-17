@@ -37,5 +37,9 @@ https://www.kth.se/student/kurser/kurs/DT2119?l=en
 2. [amazon's paper](https://arxiv.org/pdf/1904.01624.pdf)
 
 ### Impl. reference
-This repo has examples on how to use librosa on speech and TIMT classification on Phoneme
-https://github.com/Alexander-H-Liu/End-to-end-ASR-Pytorch
+1. [Sparse autoencoder](https://github.com/Abhipanda4/Sparse-Autoencoders)
+2. [This repo has examples on how to use librosa on speech and TIMT classification on Phoneme](https://github.com/Alexander-H-Liu/End-to-end-ASR-Pytorch)
+
+https://github.com/awni/speech
+
+https://www.kaggle.com/shivamb/semi-supervised-classification-using-autoencoders
