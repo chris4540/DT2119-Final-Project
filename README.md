@@ -35,3 +35,7 @@ https://www.kth.se/student/kurser/kurs/DT2119?l=en
 1. [Akash Kumar Dhaka, 2017](http://www.speech.kth.se/glu2017/papers/GLU2017_paper_5.pdf)
 
 2. [amazon's paper](https://arxiv.org/pdf/1904.01624.pdf)
+
+### Impl. reference
+This repo has examples on how to use librosa on speech and TIMT classification on Phoneme
+https://github.com/Alexander-H-Liu/End-to-end-ASR-Pytorch
