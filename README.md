@@ -1,6 +1,9 @@
 # DT2119-Proj
 DT2119 Speech and Speaker Recognition Project
 
+## Objective
+Semi-supervised learning on frame-based phoneme classification
+
 ## Tasks
 - [ ] literatal study
 - [ ] Set the project objective
@@ -27,7 +30,7 @@ Please read it on:
 https://www.kth.se/student/kurser/kurs/DT2119?l=en
 
 ## Dataset
-1. TIMIT  (for prelimary test?)
+1. [TIMIT](https://github.com/philipperemy/timit)
 2. TIDIGIT (may not be able to use)
 3. TODO
 
@@ -36,6 +39,7 @@ https://www.kth.se/student/kurser/kurs/DT2119?l=en
 
 2. [amazon's paper](https://arxiv.org/pdf/1904.01624.pdf)
 
+3. http://www.nada.kth.se/~ann/exjobb/shiping_song.pdf
 ### Impl. reference
 1. [Sparse autoencoder](https://github.com/Abhipanda4/Sparse-Autoencoders)
 2. [This repo has examples on how to use librosa on speech and TIMT classification on Phoneme](https://github.com/Alexander-H-Liu/End-to-end-ASR-Pytorch)
@@ -43,3 +47,6 @@ https://www.kth.se/student/kurser/kurs/DT2119?l=en
 https://github.com/awni/speech
 
 https://www.kaggle.com/shivamb/semi-supervised-classification-using-autoencoders
+
+https://github.com/Faur/TIMIT
+
