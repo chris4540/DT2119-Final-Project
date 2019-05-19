@@ -6,8 +6,9 @@ Semi-supervised learning on frame-based phoneme classification
 
 ## Tasks
 - [ ] literatal study
+- [ ] Proof-of-concept (Bi-LSTM, LSTM, autoencoder)
 - [ ] Set the project objective
-- [x] Dataset selection 
+- [x] Dataset selection
 - [ ] Experiement design
 - [ ] Feature extraction (closly related to labs)
 - [ ] Model code implementations
@@ -43,6 +44,8 @@ https://www.kth.se/student/kurser/kurs/DT2119?l=en
 ### Impl. reference
 1. [Sparse autoencoder](https://github.com/Abhipanda4/Sparse-Autoencoders)
 2. [This repo has examples on how to use librosa on speech and TIMT classification on Phoneme](https://github.com/Alexander-H-Liu/End-to-end-ASR-Pytorch)
+
+3. [Combining LSTM and Convolution Neural Networks for Phoneme Recognition](https://github.com/Pierre28/DT2119_Project)
 
 https://github.com/awni/speech
 
