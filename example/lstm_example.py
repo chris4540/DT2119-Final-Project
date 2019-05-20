@@ -75,7 +75,7 @@ with torch.no_grad():
 # optimizer = optim.SGD(net.parameters(), lr=0.1)
 optimizer = optim.Adam(net.parameters(), lr=0.1)
 # best_loss = np.inf
-for epoch in range(700):
+for epoch in range(500):
     net.zero_grad()
     preds = net(input_)
     loss = loss_func(preds, targets)
@@ -84,7 +84,7 @@ for epoch in range(700):
     loss = loss.float().item()
 
 print("Final loss = ", loss)
-
+# net.load_state_dict(best_model_state)
 with torch.no_grad():
     preds = net(input_)
     values, indices = torch.max(preds, 1)
