@@ -1,6 +1,8 @@
 """
 Ref:
 https://gist.github.com/williamFalcon/f27c7b90e34b4ba88ced042d9ef33edd
+TODO:
+https://www.codefull.net/2018/11/use-pytorchs-dataloader-with-variable-length-sequences-for-lstm-gru/
 """
 import torch
 import torch.nn as nn
@@ -19,18 +21,27 @@ class LSTMToy(nn.Module):
     """
     Wrapper of true lstm model
     """
-    def __init__(self, n_feature, n_class, n_hidden=3):
+    def __init__(self, n_feature, n_class, n_hidden=3, num_layers=1):
         super().__init__()
         self.n_feature = n_feature
-        self.n_hidden = n_hidden
-        self.lstm = nn.LSTM(input_size=n_feature, hidden_size=n_hidden, num_layers=1)
+        self.hidden_size = n_hidden
+        self.num_layers = num_layers
+        self.lstm = nn.LSTM(input_size=n_feature, hidden_size=n_hidden, num_layers=num_layers)
         self.classifier = nn.Linear(n_hidden, n_class)
 
     def forward(self, x):
+        # batch_size = x.size(1)
+        # hidden, state = self._get_init_hidden_states()
         out, (_, _)= self.lstm(x)
         out, _ = nn_utils.rnn.pad_packed_sequence(out)
         out = self.classifier(out)
         return out
+
+    def _get_init_hidden_states(self, batch_size):
+        sizes = (self.hparams.nb_lstm_layers, batch_size, self.hidden_size)
+        h0 = torch.randn(*sizes)
+        s0 = torch.randn(*sizes)
+        return h0, s0
 
     def get_loss(self, logits, targets, pad_fill_val=-1):
         """
@@ -41,6 +52,8 @@ class LSTMToy(nn.Module):
             Targets: padded targets, <time, batch>
             filled values = -1
         """
+        logits = logits.contiguous()
+        targets = targets.contiguous()
         log_p = log_softmax(logits, dim=-1) # take log_softmax over last dim
 
         # flatten <time, batch> => <time*batch>
@@ -66,7 +79,10 @@ if __name__ == "__main__":
     net = LSTMToy(n_features, n_classes)
     # ======================================================
     optimizer = optim.Adam(net.parameters(), lr=0.05)
+    net.train()
     for epoch in range(5):
+        train_loss = 0
+        batch_cnt = 0
         for data in chunks(traindata, batch_size):
             # obtain batch data
             batch_X = torch.zeros((max_length, batch_size, n_features))
@@ -85,12 +101,16 @@ if __name__ == "__main__":
             # ============================================================
             pack_X = nn_utils.rnn.pack_padded_sequence(
                 batch_X, seq_lengths, enforce_sorted=False)
-            batch_Y = batch_Y[:max_lengths,:]
+            batch_Y = batch_Y[:max_lengths,:i+1]
             #
             out = net(pack_X)
             loss = net.get_loss(out, batch_Y)
+            # compute gradient and do SGD step
+            optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-            loss = loss.float().item()
-            print("Loss = ", loss)
 
+            train_loss += loss.float().item()
+            batch_cnt += 1
+
+        train_loss = train_loss / batch_cnt
