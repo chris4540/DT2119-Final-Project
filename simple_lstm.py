@@ -86,9 +86,11 @@ if __name__ == "__main__":
         total = 0
         correct = 0
         for data in chunks(traindata, batch_size):
+            # the size of the batch. At the end we would like remaining
+            n_data = len(data)
             # obtain batch data
-            batch_X = torch.zeros((max_length, batch_size, n_features))
-            batch_Y = torch.ones((max_length, batch_size), dtype=torch.long) * -1
+            batch_X = torch.zeros((max_length, n_data, n_features))
+            batch_Y = torch.ones((max_length, n_data), dtype=torch.long) * -1
             seq_lengths = []
 
             # transform the data
@@ -103,12 +105,15 @@ if __name__ == "__main__":
             # ============================================================
             pack_X = nn_utils.rnn.pack_padded_sequence(
                 batch_X, seq_lengths, enforce_sorted=False)
-            targets = batch_Y[:max_lengths,:i+1]
-            #
+            targets = batch_Y[:max_lengths,:n_data]
+
+            # reset grad
+            optimizer.zero_grad()
+            # feed forward
             out = net(pack_X)
             loss = net.get_loss(out, targets)
+            # back-prop
             # compute gradient and do SGD step
-            optimizer.zero_grad()
             loss.backward()
             optimizer.step()
 
@@ -119,6 +124,7 @@ if __name__ == "__main__":
             train_loss += loss.item()
             _, predicted = out.max(-1)
 
+            # calculate mask and select from it
             mask = (targets != -1)
             predicted = torch.masked_select(predicted, mask)
             true_labels = torch.masked_select(targets, mask)
