@@ -41,7 +41,9 @@ https://www.kth.se/student/kurser/kurs/DT2119?l=en
 2. [amazon's paper](https://arxiv.org/pdf/1904.01624.pdf)
 
 3. http://www.nada.kth.se/~ann/exjobb/shiping_song.pdf
+
 ### Impl. reference
+0. [Preprocessing] (https://github.com/Faur/TIMIT)
 1. [Sparse autoencoder](https://github.com/Abhipanda4/Sparse-Autoencoders)
 2. [This repo has examples on how to use librosa on speech and TIMT classification on Phoneme](https://github.com/Alexander-H-Liu/End-to-end-ASR-Pytorch)
 
@@ -51,5 +53,9 @@ https://github.com/awni/speech
 
 https://www.kaggle.com/shivamb/semi-supervised-classification-using-autoencoders
 
-https://github.com/Faur/TIMIT
 
+https://static.googleusercontent.com/media/research.google.com/ja//pubs/archive/43905.pdf
+
+https://github.com/snap-stanford/GraphRNN/blob/master/train.py
+
+https://www.codefull.net/2018/11/use-pytorchs-dataloader-with-variable-length-sequences-for-lstm-gru/
