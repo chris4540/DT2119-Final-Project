@@ -30,15 +30,16 @@ class LSTMToy(nn.Module):
         self.classifier = nn.Linear(n_hidden, n_class)
 
     def forward(self, x):
-        # batch_size = x.size(1)
-        # hidden, state = self._get_init_hidden_states()
+        # batch_size = x.batch_sizes[0]
+        # hidden, state = self._get_init_hidden_states(batch_size)
+        # out, (_, _)= self.lstm(x, (hidden, state))
         out, (_, _)= self.lstm(x)
         out, _ = nn_utils.rnn.pad_packed_sequence(out)
         out = self.classifier(out)
         return out
 
     def _get_init_hidden_states(self, batch_size):
-        sizes = (self.hparams.nb_lstm_layers, batch_size, self.hidden_size)
+        sizes = (self.num_layers, batch_size, self.hidden_size)
         h0 = torch.randn(*sizes)
         s0 = torch.randn(*sizes)
         return h0, s0
@@ -76,7 +77,7 @@ if __name__ == "__main__":
     n_features = 13
     n_classes = 21  # reduced from tri-phone to phoneme
     traindata = np.load('data/traindata_thin.npz')['traindata']
-    net = LSTMToy(n_features, n_classes)
+    net = LSTMToy(n_features, n_classes, n_hidden=30)
     # ======================================================
     optimizer = optim.Adam(net.parameters(), lr=0.05)
     net.train()
@@ -105,6 +106,7 @@ if __name__ == "__main__":
             # ============================================================
             pack_X = nn_utils.rnn.pack_padded_sequence(
                 batch_X, seq_lengths, enforce_sorted=False)
+            # print(pack_X.batch_sizes[0])
             targets = batch_Y[:max_lengths,:n_data]
 
             # reset grad
