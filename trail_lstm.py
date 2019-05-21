@@ -74,15 +74,17 @@ if __name__ == "__main__":
     batch_size = 100
     max_length = 600
     n_features = 13
-    n_classes = 61
+    n_classes = 21  # reduced from tri-phone to phoneme
     traindata = np.load('data/traindata_thin.npz')['traindata']
     net = LSTMToy(n_features, n_classes)
     # ======================================================
     optimizer = optim.Adam(net.parameters(), lr=0.05)
     net.train()
-    for epoch in range(5):
+    for epoch in range(30):
         train_loss = 0
         batch_cnt = 0
+        total = 0
+        correct = 0
         for data in chunks(traindata, batch_size):
             # obtain batch data
             batch_X = torch.zeros((max_length, batch_size, n_features))
@@ -101,16 +103,32 @@ if __name__ == "__main__":
             # ============================================================
             pack_X = nn_utils.rnn.pack_padded_sequence(
                 batch_X, seq_lengths, enforce_sorted=False)
-            batch_Y = batch_Y[:max_lengths,:i+1]
+            targets = batch_Y[:max_lengths,:i+1]
             #
             out = net(pack_X)
-            loss = net.get_loss(out, batch_Y)
+            loss = net.get_loss(out, targets)
             # compute gradient and do SGD step
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
 
-            train_loss += loss.float().item()
+            # compute statistics
+            out = out.float()
+            loss = loss.float()
+
+            train_loss += loss.item()
+            _, predicted = out.max(-1)
+
+            mask = (targets != -1)
+            predicted = torch.masked_select(predicted, mask)
+            true_labels = torch.masked_select(targets, mask)
+
+            total += true_labels.size(0)
+            correct += predicted.eq(true_labels).sum().item()
             batch_cnt += 1
 
+
         train_loss = train_loss / batch_cnt
+        acc = 100 * correct / total
+        print(train_loss, acc)
+
