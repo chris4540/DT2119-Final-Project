@@ -114,7 +114,7 @@ if __name__ == "__main__":
             pack_X = nn_utils.rnn.pack_padded_sequence(batch_X, seq_lengths).to(device)
 
             # print(pack_X.batch_sizes[0])
-            targets = batch_Y[:max_lengths,:n_data].to(device)
+            targets = batch_Y[:max_lengths, :n_data].to(device)
 
             # reset grad
             optimizer.zero_grad()
