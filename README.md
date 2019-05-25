@@ -33,7 +33,17 @@ https://www.kth.se/student/kurser/kurs/DT2119?l=en
 ## Dataset
 1. [TIMIT](https://github.com/philipperemy/timit)
 2. TIDIGIT (may not be able to use)
-3. TODO
+
+### TIMIT Dataset
+See section 3.4.3 for more info [doc](https://perso.limsi.fr/lamel/TIMIT_NISTIR4930.pdf)
+
+#### Training and validation 
+Training + validation = 330 SX texts * 7 speakers + 1386 SI texts  
+validation = 184 sentences (unknown how to get it, random?)  
+Therefore, training = 3696 - 184 = 3152 sentances
+
+#### Testing
+Use the standard core data set = 192 sentences. Splited by DARPA-ISTO.
 
 ### Reference
 1. [Akash Kumar Dhaka, 2017](http://www.speech.kth.se/glu2017/papers/GLU2017_paper_5.pdf)
