@@ -17,17 +17,27 @@ def chunks(l, n):
     for i in range(0, len(l), n):
         yield l[i:i+n]
 
-class LSTMToy(nn.Module):
+class LSTM(nn.Module):
     """
     Wrapper of true lstm model
     """
-    def __init__(self, n_feature, n_class, n_hidden=3, num_layers=1):
+    def __init__(self, n_feature, n_class, n_hidden=3, num_layers=1, mode = 'lstm'):
         super().__init__()
         self.n_feature = n_feature
         self.hidden_size = n_hidden
         self.num_layers = num_layers
-        self.lstm = nn.LSTM(input_size=n_feature, hidden_size=n_hidden, num_layers=num_layers)
-        self.classifier = nn.Linear(n_hidden, n_class)
+        self.mode = mode
+        if self.mode == 'bi-lstm':
+            self.lstm = nn.LSTM(input_size=n_feature, hidden_size=n_hidden, num_layers=num_layers, bidirectional=True)
+            self.classifier = nn.Linear(2 * n_hidden, n_class)
+        elif self.mode == 'lstm':
+            self.lstm = nn.LSTM(input_size=n_feature, hidden_size=n_hidden, num_layers=num_layers)
+            self.classifier = nn.Linear(n_hidden, n_class)
+        else:
+            print("Wrong mode number!")
+            exit()
+
+
 
     def forward(self, x):
         # batch_size = x.batch_sizes[0]
@@ -78,14 +88,15 @@ if __name__ == "__main__":
     batch_size = 100
     max_length = 600
     n_features = 13
+    max_epoch = 30
     n_classes = 21  # reduced from tri-phone to phoneme
     traindata = np.load('data/traindata_thin.npz')['traindata']
-    net = LSTMToy(n_features, n_classes, n_hidden=30).to(device)
+    net = LSTM(n_features, n_classes, n_hidden=30, mode='bi-lstm', num_layers=2).to(device)
 
     # ======================================================
     optimizer = optim.Adam(net.parameters(), lr=0.05)
     net.train()
-    for epoch in range(30):
+    for epoch in range(max_epoch):
         train_loss = 0
         batch_cnt = 0
         total = 0
@@ -109,9 +120,9 @@ if __name__ == "__main__":
                 if seq_len > max_lengths:
                     max_lengths = seq_len
             # ============================================================
-            # pack_X = nn_utils.rnn.pack_padded_sequence(batch_X, seq_lengths, enforce_sorted=False)
-            seq_lengths.sort(reverse=True)
-            pack_X = nn_utils.rnn.pack_padded_sequence(batch_X, seq_lengths).to(device)
+            pack_X = nn_utils.rnn.pack_padded_sequence(batch_X, seq_lengths, enforce_sorted=False)
+            # seq_lengths.sort(reverse=True)
+            # pack_X = nn_utils.rnn.pack_padded_sequence(batch_X, seq_lengths).to(device)
 
             # print(pack_X.batch_sizes[0])
             targets = batch_Y[:max_lengths, :n_data].to(device)
