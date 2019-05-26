@@ -3,6 +3,7 @@ import scipy
 import scipy.signal
 import soundfile
 import numpy as np
+from pathlib import Path
 
 class TIMITFeatureExtractor:
     """
@@ -36,8 +37,36 @@ class TIMITFeatureExtractor:
     }
 
     def __init__(self, wavfile):
+
+        # load audio file
         self.sig, self.sample_freq = self.load_audio(wavfile)
 
+        # load phone info
+        self.phone_info = dict()
+        phone_file = Path(wavfile).with_suffix('.PHN')
+        self.phone_info['file'] = phone_file
+
+        #
+
+    def extract(self):
+        pass
+
+    def load_phone_info(self):
+        starts = list()
+        ends = list()
+        phones = list()
+        with open(self.phone_info['file'], 'r') as f:
+            for line in f:
+                s, e, ph = line.rstrip().split()
+                starts.append(int(s))
+                ends.append(int(e))
+                phones.append(ph)
+
+        # save them down
+        self.phone_info['starts'] = starts
+        self.phone_info['ends'] = ends
+        self.phone_info['phones'] = phones
+        self.phone_info['end_frame'] = ends[-1]
 
     def get_mfcc_vecs(self):
         win_func = lambda M: self.windows(self, M)
@@ -52,7 +81,11 @@ class TIMITFeatureExtractor:
         # calculate delta-delta-mfcc
         ddmfcc = features.delta(dmfcc, N=self.dmfcc_config['ndelta_frames'])
         ret = np.hstack((mfcc, dmfcc, ddmfcc))
+        self.features = ret
         return ret
+
+    def get_num_frames(self):
+        pass
 
     @staticmethod
     def load_audio(filename):
@@ -70,3 +103,5 @@ class TIMITFeatureExtractor:
         Call back for mfcc lib
         """
         return scipy.signal.hamming(frame_size, sym=False)
+
+    # def
