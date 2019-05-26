@@ -67,11 +67,11 @@ if __name__ == "__main__":
 
     # training data
     folder = os.path.join("TIMIT", "TRAIN")
-    dump_file_name = "data/raw/traindata.npz"
+    dump_file_name = "data/raw/full_traindata.npz"
 
 
     data = extract_featurs_from(folder, phone_to_idx)
-    print("Writing training data....")
+    print("Writing training data to %s ...." % dump_file_name)
     # saving
     kwargs = {
         'data': data
