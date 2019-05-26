@@ -22,6 +22,12 @@ import numpy as np
 import pandas as pd
 import json
 
+class Config:
+    dump_file_name = "data/raw/full_traindata.npz"
+    phone_map_tsv = "data/map/phones.60-48-39.map"
+    folder = os.path.join("TIMIT", "TRAIN")
+
+
 def map_phone_to_idx(phone, phone_to_idx):
     """
     Args:
@@ -76,22 +82,19 @@ def extract_featurs_from(folder, phone_to_idx):
 
 if __name__ == "__main__":
     # load the mapping
-    df = pd.read_csv("data/map/phones.60-48-39.map", sep="\t", index_col=0)
+    df = pd.read_csv(Config.phone_map_tsv, sep="\t", index_col=0)
     df = df.dropna()
     df = df.drop('eval', axis=1)
     train_phn_idx = {k: i for i, k in enumerate(df['train'].unique())}
     df['train_idx'] = df['train'].map(train_phn_idx)
     phone_to_idx = df['train_idx'].to_dict()
 
-    # training data
-    folder = os.path.join("TIMIT", "TRAIN")
-    dump_file_name = "data/raw/full_traindata.npz"
 
-    data = extract_featurs_from(folder, phone_to_idx)
-    print("Writing training data to %s ...." % dump_file_name)
+    data = extract_featurs_from(Config.folder, phone_to_idx)
+    print("Writing training data to %s ...." % Config.dump_file_name)
     # saving
     kwargs = {
         'data': data,
         'phone_to_idx': train_phn_idx
     }
-    np.savez(dump_file_name, **kwargs)
+    np.savez(Config.dump_file_name, **kwargs)
