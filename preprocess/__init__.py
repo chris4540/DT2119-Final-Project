@@ -47,7 +47,11 @@ class TIMITFeatureExtractor:
         phone_file = Path(wavfile).with_suffix('.PHN')
         self.phone_info['file'] = phone_file
         self.load_phone_info()
-        #
+
+        # adjust the sigal acc. to phn file
+        start = self.phone_info['start_frame']
+        end = self.phone_info['end_frame']
+        self.sig = self.sig[start:end]
 
     def extract(self):
         self.get_mfcc_vecs()
@@ -75,6 +79,7 @@ class TIMITFeatureExtractor:
         self.phone_info['ends'] = ends
         self.phone_info['phones'] = phones
         self.phone_info['end_frame'] = ends[-1]
+        self.phone_info['start_frame'] = starts[0]
 
     def get_mfcc_vecs(self):
         win_func = lambda M: self.windows(self, M)
@@ -107,13 +112,16 @@ class TIMITFeatureExtractor:
         Get the number of frames acc. to the phn file
         """
         winlen, winstep = self.get_windows_length_step()
-        ret = np.ceil((self.phone_info['end_frame']-winlen) / winstep) + 1
+        start = self.phone_info['start_frame']
+        end = self.phone_info['end_frame']
+        ret = np.ceil((end - start - winlen) / winstep) + 1
         return int(ret)
 
     def map_phone_to_features(self):
-        # calculate the mid points of mfcc vectors
+        # calculate the mid points of mfcc vectors from num_frame to sample domain
         winlen, winstep = self.get_windows_length_step()
-        mid_pts = np.arange(self.features.shape[0])*winstep + winlen*0.5
+        start = self.phone_info['start_frame']
+        mid_pts = np.arange(self.features.shape[0])*winstep + winlen*0.5 + start
 
         # calculate the tags acc. to mid-points
         x = np.array(mid_pts)
