@@ -54,8 +54,8 @@ class TIMITFeatureExtractor:
         self.map_phone_to_features()
         ret = {
             'file': self.wavfile,
-            'features': self.features,
-            'labels': self.labels,
+            'features': self.features.astype('float32'),
+            'phone': self.labels,
         }
         return ret
 
