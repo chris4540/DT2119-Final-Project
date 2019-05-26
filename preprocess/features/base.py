@@ -65,6 +65,7 @@ def mfcc(signal,samplerate=16000,winlen=0.025,winstep=0.01,numcep=13,
     :returns: A numpy array of size (NUMFRAMES by numcep) containing features. Each row holds 1 feature vector.
     """
     nfft = nfft or calculate_nfft(samplerate, winlen)
+    print(nfft)
     feat,energy = fbank(signal,samplerate,winlen,winstep,nfilt,nfft,lowfreq,highfreq,preemph,winfunc)
     feat = numpy.log(feat)
     feat = dct(feat, type=2, axis=1, norm='ortho')[:,:numcep]
@@ -220,6 +221,9 @@ def delta(feat, N):
     :param feat: A numpy array of size (NUMFRAMES by number of features) containing features. Each row holds 1 feature vector.
     :param N: For each frame, calculate delta features based on preceding and following N frames
     :returns: A numpy array of size (NUMFRAMES by number of features) containing delta features. Each row holds 1 delta feature vector.
+
+    See also:
+    http://practicalcryptography.com/miscellaneous/machine-learning/guide-mel-frequency-cepstral-coefficients-mfccs/
     """
     if N < 1:
         raise ValueError('N must be an integer >= 1')
