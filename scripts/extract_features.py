@@ -77,15 +77,3 @@ if __name__ == "__main__":
         'data': data
     }
     np.savez(dump_file_name, **kwargs)
-
-    # ############################################################
-    # test data
-    folder = os.path.join("TIMIT", "TEST")
-    dump_file_name = "data/raw/testdata.npz"
-    data = extract_featurs_from(folder, phone_to_idx)
-    print("Writing test data...")
-    # saving
-    kwargs = {
-        'data': data
-    }
-    np.savez(dump_file_name, **kwargs)

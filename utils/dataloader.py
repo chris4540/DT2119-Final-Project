@@ -1,9 +1,9 @@
 from torch.utils.data.dataset import Dataset
 from torch.utils.data import DataLoader
-import torchvision.transforms as trns
-from scipy.io import loadmat
-from PIL import Image
-import os
+# import torchvision.transforms as trns
+# from scipy.io import loadmat
+# from PIL import Image
+# import os
 
 
 class TIMITDataset(Dataset):
