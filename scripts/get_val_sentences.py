@@ -69,5 +69,6 @@ if __name__ == "__main__":
     assert len(val_sentence) == Config.num_val_sent
 
     # save the list as a json file
+    print("Saving the validation sentence list to %s" % Config.val_sentence_json)
     with open(Config.val_sentence_json, 'w') as f:
         json.dump(val_sentence, f, indent=2)
