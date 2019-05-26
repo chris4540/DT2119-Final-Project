@@ -38,6 +38,7 @@ class TIMITFeatureExtractor:
 
     def __init__(self, wavfile):
 
+        self.wavfile = wavfile
         # load audio file
         self.sig, self.sample_freq = self.load_audio(wavfile)
 
@@ -45,11 +46,18 @@ class TIMITFeatureExtractor:
         self.phone_info = dict()
         phone_file = Path(wavfile).with_suffix('.PHN')
         self.phone_info['file'] = phone_file
-
+        self.load_phone_info()
         #
 
     def extract(self):
-        pass
+        self.get_mfcc_vecs()
+        self.map_phone_to_features()
+        ret = {
+            'file': self.wavfile,
+            'features': self.features,
+            'labels': self.labels,
+        }
+        return ret
 
     def load_phone_info(self):
         starts = list()
@@ -81,11 +89,43 @@ class TIMITFeatureExtractor:
         # calculate delta-delta-mfcc
         ddmfcc = features.delta(dmfcc, N=self.dmfcc_config['ndelta_frames'])
         ret = np.hstack((mfcc, dmfcc, ddmfcc))
+
+        # remove a few features
+        nframes = self.get_num_frames()
+        assert nframes <= ret.shape[0]
+        ret = ret[:nframes, :]
         self.features = ret
         return ret
 
+    def get_windows_length_step(self):
+        winlen = self.mfcc_config['winlen']*self.sample_freq
+        winstep = self.mfcc_config['winstep']*self.sample_freq
+        return winlen, winstep
+
     def get_num_frames(self):
-        pass
+        """
+        Get the number of frames acc. to the phn file
+        """
+        winlen, winstep = self.get_windows_length_step()
+        ret = np.ceil((self.phone_info['end_frame']-winlen) / winstep) + 1
+        return int(ret)
+
+    def map_phone_to_features(self):
+        # calculate the mid points of mfcc vectors
+        winlen, winstep = self.get_windows_length_step()
+        mid_pts = np.arange(self.features.shape[0])*winstep + winlen*0.5
+
+        # calculate the tags acc. to mid-points
+        x = np.array(mid_pts)
+        starts = self.phone_info['starts']
+        ends = self.phone_info['ends']
+        rets = self.phone_info['phones']
+        conds = list()
+        for s, e in zip(starts, ends):
+            conds.append(np.all([s <= x, x < e], axis=0))
+        labels = np.select(conds, rets)
+        self.labels = labels
+        return labels
 
     @staticmethod
     def load_audio(filename):
@@ -103,5 +143,3 @@ class TIMITFeatureExtractor:
         Call back for mfcc lib
         """
         return scipy.signal.hamming(frame_size, sym=False)
-
-    # def
