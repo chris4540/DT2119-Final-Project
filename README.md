@@ -15,13 +15,6 @@ Semi-supervised learning on frame-based phoneme classification
 - [ ] Poster
 - [ ] Report and discussion
 
-## Novelty
-These points are probabily used but not limited to
-1. Add two to three layers to the encoder, decoder, and the classifier
-2. use ReLU/ week ReLU as the activation function
-3. Add batch-normalization when the number of layers increased
-4. compare different combinations of these points
-
 ## Report infomation
 Link to report:
 https://www.overleaf.com/6637372248xzbwwqpjpdzj
