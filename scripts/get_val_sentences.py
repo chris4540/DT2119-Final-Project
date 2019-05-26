@@ -1,5 +1,10 @@
 """
 Get the validation set of sentences
+
+1. calculate the number of sentences read by males and females.
+2. distribute them to each dialect
+3. draw # of sentences // 8 in each dialect
+4. save the list of sentences to a json file for review
 """
 import numpy as np
 import os
