@@ -21,23 +21,12 @@ from tqdm import tqdm
 import numpy as np
 import pandas as pd
 import json
+from utils import map_phone_to_idx
 
 class Config:
     dump_file_name = "data/raw/full_traindata.npz"
     phone_map_tsv = "data/map/phones.60-48-39.map"
     folder = os.path.join("TIMIT", "TRAIN")
-
-
-def map_phone_to_idx(phone, phone_to_idx):
-    """
-    Args:
-        phone (list[str]): list of labels
-        phone_to_idx (dict): mapping from string lable to index
-    Returns:
-        list of phone index
-    """
-    ret = np.vectorize(phone_to_idx.get)(phone)
-    return ret
 
 def extract_featurs_from(folder, phone_to_idx):
     # ===================================================
