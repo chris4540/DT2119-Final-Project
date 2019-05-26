@@ -7,12 +7,13 @@ import numpy as np
 import pandas as pd
 from utils import map_phone_to_idx
 from preprocess import TIMITFeatureExtractor
+from sklearn.externals import joblib
 
 class Config:
-    dump_file_name = "data/raw/core_test.npz"
+    dump_file_name = "data/core_test.npz"
     phone_map_tsv = "data/map/phones.60-48-39.map"
-    # timit_test_folder = "./TIMIT/TEST"
     timit_test_folder = os.path.join("TIMIT", "TEST")
+    scaler_pkl = "data/feature_scaler.pkl"
 
 # ==============================================================================
 # This list is edited from TIMIT/README.DOC
@@ -36,6 +37,9 @@ if __name__ == "__main__":
     train_phn_idx = {k: i for i, k in enumerate(df['train'].unique())}
     df['train_idx'] = df['train'].map(train_phn_idx)
     phone_to_idx = df['train_idx'].to_dict()
+
+    # load the scalar
+    scaler = joblib.load(Config.scaler_pkl)
 
     # ==========================================================
     cnt = 0
@@ -62,8 +66,11 @@ if __name__ == "__main__":
                 idxs = np.argwhere(phone == 'q')
                 phone = np.delete(phone, idxs)
                 features = np.delete(extracted['features'], idxs, axis=0)
-
                 assert len(phone) == features.shape[0]
+
+                # Transform the features with the StandardScaler trained by
+                # training data
+                features =  scaler.transform(features)
 
                 if '0' in phone:
                     raise IOError("Encounter 0 phone for the file: " + fname)
