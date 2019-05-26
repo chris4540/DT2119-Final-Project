@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
     # training data
     folder = os.path.join("TIMIT", "TRAIN")
-    dump_file_name = "traindata.npz"
+    dump_file_name = "data/raw/traindata.npz"
 
 
     data = extract_featurs_from(folder, phone_to_idx)
@@ -78,10 +78,10 @@ if __name__ == "__main__":
     }
     np.savez(dump_file_name, **kwargs)
 
-
+    # ############################################################
     # test data
     folder = os.path.join("TIMIT", "TEST")
-    dump_file_name = "testdata.npz"
+    dump_file_name = "data/raw/testdata.npz"
     data = extract_featurs_from(folder, phone_to_idx)
     print("Writing test data...")
     # saving
