@@ -62,6 +62,7 @@ if __name__ == "__main__":
                     'file': extracted['file']
                 })
                 cnt += 1
+    print("Extracted %d data" % cnt)
     # ============================================================
     print("Writing core test data to %s ...."% Config.dump_file_name)
     # saving
