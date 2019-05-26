@@ -62,6 +62,7 @@ def extract_featurs_from(folder, phone_to_idx):
             idxs = np.argwhere(phone == 'q')
             phone = np.delete(phone, idxs)
             features = np.delete(extracted['features'], idxs, axis=0)
+            assert len(phone) == features.shape[0]
 
             if '0' in phone:
                 print(fname)

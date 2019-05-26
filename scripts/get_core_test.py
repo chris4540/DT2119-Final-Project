@@ -4,13 +4,15 @@ Script to generate core test
 import os
 import json
 import numpy as np
+import pandas as pd
 from utils import map_phone_to_idx
 from preprocess import TIMITFeatureExtractor
 
 class Config:
     dump_file_name = "data/core_test.npz"
-    phone_to_idx_json = "data/raw/phone_to_idx.json"
-    timit_test_folder = "./TIMIT/TEST"
+    phone_map_tsv = "data/map/phones.60-48-39.map"
+    # timit_test_folder = "./TIMIT/TEST"
+    timit_test_folder = os.path.join("TIMIT", "TEST")
 
 # ==============================================================================
 # This list is edited from TIMIT/README.DOC
@@ -27,9 +29,13 @@ core_test_spkr = [
 ]
 
 if __name__ == "__main__":
-    # read the phone_to_idx json file
-    with open(Config.phone_to_idx_json, 'r') as f:
-        phone_to_idx = json.load(f)
+    # load the mapping
+    df = pd.read_csv(Config.phone_map_tsv, sep="\t", index_col=0)
+    df = df.dropna()
+    df = df.drop('eval', axis=1)
+    train_phn_idx = {k: i for i, k in enumerate(df['train'].unique())}
+    df['train_idx'] = df['train'].map(train_phn_idx)
+    phone_to_idx = df['train_idx'].to_dict()
 
     # ==========================================================
     cnt = 0
@@ -52,12 +58,19 @@ if __name__ == "__main__":
                 extracted = ext.extract()
 
                 phone = extracted['phone']
+                # drop q phone
+                idxs = np.argwhere(phone == 'q')
+                phone = np.delete(phone, idxs)
+                features = np.delete(extracted['features'], idxs, axis=0)
+
+                assert len(phone) == features.shape[0]
+
                 if '0' in phone:
                     raise IOError("Encounter 0 phone for the file: " + fname)
 
                 phone_idxs = map_phone_to_idx(phone, phone_to_idx)
                 core_test_data.append({
-                    'features': extracted['features'],
+                    'features': features,
                     'phone_idx': phone_idxs,
                     'file': extracted['file']
                 })
@@ -67,6 +80,7 @@ if __name__ == "__main__":
     print("Writing core test data to %s ...."% Config.dump_file_name)
     # saving
     kwargs = {
-        'data': core_test_data
+        'data': core_test_data,
+        'phone_to_idx': train_phn_idx
     }
     np.savez(Config.dump_file_name, **kwargs)
