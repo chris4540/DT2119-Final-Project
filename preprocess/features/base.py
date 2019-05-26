@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # Author: James Lyons 2012
 from __future__ import division
 import numpy
-from python_speech_features import sigproc
+from . import sigproc
 from scipy.fftpack import dct
 
 def calculate_nfft(samplerate, winlen):
