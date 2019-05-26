@@ -1,5 +1,5 @@
 """
-Extracting features from the training dataset.
+Generate the training dataset.
 
 The number of phone should be 48 after using this script.
 
