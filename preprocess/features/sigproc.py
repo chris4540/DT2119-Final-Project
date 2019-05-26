@@ -60,8 +60,10 @@ def framesig(sig, frame_len, frame_step, winfunc=lambda x: numpy.ones((x,)), str
 
     padlen = int((numframes - 1) * frame_step + frame_len)
 
-    zeros = numpy.zeros((padlen - slen,))
-    padsignal = numpy.concatenate((sig, zeros))
+    # zeros = numpy.zeros((padlen - slen,))
+    # padsignal = numpy.concatenate((sig, zeros))
+    padsignal = numpy.pad(sig, (0, padlen - slen), mode='edge')
+
     if stride_trick:
         win = winfunc(frame_len)
         frames = rolling_window(padsignal, window=frame_len, step=frame_step)
