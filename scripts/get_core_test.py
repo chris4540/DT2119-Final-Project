@@ -9,7 +9,7 @@ from utils import map_phone_to_idx
 from preprocess import TIMITFeatureExtractor
 
 class Config:
-    dump_file_name = "data/core_test.npz"
+    dump_file_name = "data/raw/core_test.npz"
     phone_map_tsv = "data/map/phones.60-48-39.map"
     # timit_test_folder = "./TIMIT/TEST"
     timit_test_folder = os.path.join("TIMIT", "TEST")
