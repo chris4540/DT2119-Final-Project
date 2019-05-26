@@ -6,14 +6,15 @@ Semi-supervised learning on frame-based phoneme classification
 
 ## Tasks
 - [ ] literatal study
-- [ ] Proof-of-concept (Bi-LSTM, LSTM, autoencoder)
-- [ ] Set the project objective
+- [x] Proof-of-concept (Bi-LSTM, LSTM, autoencoder)
+- [x] Set the project objective
 - [x] Dataset selection
-- [ ] Experiement design
-- [ ] Feature extraction (closly related to labs)
+- [x] Experiement design
+- [x] Feature extraction (closly related to labs)
+- [ ] Data loader and exp code
 - [ ] Model code implementations
 - [ ] Poster
-- [ ] Report and discussion
+- [ ] Final Report and discussion
 
 ## Report infomation
 Link to report:
