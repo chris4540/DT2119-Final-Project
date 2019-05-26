@@ -1,14 +1,16 @@
 """
-Split full training set into training set and validation set
+Get the validation set of sentences
 """
 import numpy as np
 import os
+import json
 
 # don't move this number
 np.random.seed(40)
 
 class Config:
     full_train_data = "data/raw/full_traindata.npz"
+    val_sentence_json = "data/val_sent.json"
     num_val_sent = 184
     num_male_val_sent = int(0.7 * num_val_sent)
     num_female_val_sent =  num_val_sent - num_male_val_sent
@@ -60,3 +62,7 @@ if __name__ == "__main__":
             break
 
     assert len(val_sentence) == Config.num_val_sent
+
+    # save the list as a json file
+    with open(Config.val_sentence_json, 'w') as f:
+        json.dump(val_sentence, f, indent=2)
