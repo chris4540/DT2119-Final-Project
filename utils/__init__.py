@@ -1,10 +1,68 @@
 import numpy as np
+import pandas as pd
 import torch
 import time
 # from tqdm import tqdm
 from torch.nn.utils.rnn import pad_packed_sequence
 from torch.optim.lr_scheduler import CyclicLR
 from torch.optim.lr_scheduler import StepLR
+
+class Singleton(type):
+    _instances = {}
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+class TrainPhnToEvalPhnMapping(metaclass=Singleton):
+    """
+    Usage:
+
+        create the mapping by one of the followings
+        mapping = TrainPhnToEvalPhnMapping(mapping_tsv=....)
+        mapping = TrainPhnToEvalPhnMapping()
+
+        # use it
+        eval_labels = np.vectorize(mapping.get)(train_labels)
+        # or
+        # labels is a torch.Tensor
+        labels.map_(labels, mapping.get)
+    """
+    def __init__(self, mapping_tsv=None):
+        """
+        Args:
+            the mapping tsv: could be data/map/phones.60-48-39.map
+        """
+        if mapping_tsv is None:
+            print("Using the default mapping tsv")
+            self.mapping_tsv = "data/map/phones.60-48-39.map"
+        else:
+            self.mapping_tsv = mapping_tsv
+        # load the csv
+        df = pd.read_csv(self.mapping_tsv, sep="\t", index_col=0)
+        df = df.dropna()  # drop the q phone
+        # ===================================================================
+        # translate phone to index by simple dict comprehension
+        train_phn_idx = {k: i for i, k in enumerate(df['train'].unique())}
+        df['train_idx'] = df['train'].map(train_phn_idx)
+        eval_phn_idx = {k: i for i, k in enumerate(df['eval'].unique())}
+        df['eval_idx'] = df['eval'].map(eval_phn_idx)
+        # ===================================================================
+        # extract only the index column and translate them
+        sub_df = df[['train_idx', 'eval_idx']]
+        sub_df = sub_df.set_index('train_idx')
+
+        # the mapping from phone index for training to evaluation
+        self.map = sub_df['eval_idx'].to_dict()
+
+    def get(self, key):
+        return self.map[key]
+
+    def get_dict(self):
+        """
+        Return a clone of self.map
+        """
+        return {k: v for k, v in self.map.items()}
 
 def map_phone_to_idx(phone, phone_to_idx):
     """
