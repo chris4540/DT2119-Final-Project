@@ -3,6 +3,8 @@ import torch
 import time
 # from tqdm import tqdm
 from torch.nn.utils.rnn import pad_packed_sequence
+from torch.optim.lr_scheduler import CyclicLR
+from torch.optim.lr_scheduler import StepLR
 
 def map_phone_to_idx(phone, phone_to_idx):
     """
@@ -43,7 +45,7 @@ def evalation(data_loader, model, device='cuda'):
     score = correct / total
     return score
 
-def train_one_epoch(train_loader, model, optimizer, device="cuda"):
+def train_one_epoch(train_loader, model, optimizer, scheduler=None, device="cuda"):
     """
     Run one train epoch
     """
@@ -83,6 +85,11 @@ def train_one_epoch(train_loader, model, optimizer, device="cuda"):
 
         total += true_labels.size(0)
         correct += predicted.eq(true_labels).sum().item()
+        if isinstance(scheduler, CyclicLR):
+            scheduler.step()
+
+    if isinstance(scheduler, StepLR):
+        scheduler.step()
 
     # print statistics
     train_loss = train_loss / len(train_loader)
