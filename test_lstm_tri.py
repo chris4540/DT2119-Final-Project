@@ -56,7 +56,6 @@ if __name__ == "__main__":
         # train the network
         train(trainloader, net, optimizer, scheduler=scheduler, device=device)
         # evaluate it
-        valid_acc = evalation(validloader, net, device=device)
-        test_acc =  evalation(testloader, net, device=device)
-        print("valid_acc = ", valid_acc)
-        print("test_acc = ", test_acc)
+        valid_acc = evalation(validloader, net, device=device, tag="Valid")
+        test_acc =  evalation(testloader, net, device=device, tag="Test")
+

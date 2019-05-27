@@ -74,7 +74,7 @@ def map_phone_to_idx(phone, phone_to_idx):
     ret = np.vectorize(phone_to_idx.get)(phone)
     return ret
 
-def evalation(data_loader, model, device='cuda'):
+def evalation(data_loader, model, device='cuda', tag=""):
     """
     Run evaluation
     Return:
@@ -114,6 +114,9 @@ def evalation(data_loader, model, device='cuda'):
 
     # calculate the correct classfied
     score = correct / total
+    acc = score*100.0
+    print("[Eval] {tag} Acc. : {acc:.2f}% \t ({crr}/{tol})".format(
+            acc=acc, crr=correct, tol=total, tag=tag))
     return score
 
 def train(train_loader, model, optimizer, scheduler=None, device="cuda"):
