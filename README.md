@@ -6,21 +6,15 @@ Semi-supervised learning on frame-based phoneme classification
 
 ## Tasks
 - [ ] literatal study
-- [ ] Proof-of-concept (Bi-LSTM, LSTM, autoencoder)
-- [ ] Set the project objective
+- [x] Proof-of-concept (Bi-LSTM, LSTM, autoencoder)
+- [x] Set the project objective
 - [x] Dataset selection
-- [ ] Experiement design
-- [ ] Feature extraction (closly related to labs)
+- [x] Experiement design
+- [x] Feature extraction (closly related to labs)
+- [ ] Data loader and exp code
 - [ ] Model code implementations
 - [ ] Poster
-- [ ] Report and discussion
-
-## Novelty
-These points are probabily used but not limited to
-1. Add two to three layers to the encoder, decoder, and the classifier
-2. use ReLU/ week ReLU as the activation function
-3. Add batch-normalization when the number of layers increased
-4. compare different combinations of these points
+- [ ] Final Report and discussion
 
 ## Report infomation
 Link to report:
@@ -33,7 +27,17 @@ https://www.kth.se/student/kurser/kurs/DT2119?l=en
 ## Dataset
 1. [TIMIT](https://github.com/philipperemy/timit)
 2. TIDIGIT (may not be able to use)
-3. TODO
+
+### TIMIT Dataset
+See section 3.4.3 for more info [doc](https://perso.limsi.fr/lamel/TIMIT_NISTIR4930.pdf)
+
+#### Training and validation 
+Training + validation = 330 SX texts * 7 speakers + 1386 SI texts  
+validation = 184 sentences (unknown how to get it, random?)  
+Therefore, training = 3696 - 184 = 3152 sentances
+
+#### Testing
+Use the standard core data set = 192 sentences. Splited by DARPA-ISTO.
 
 ### Reference
 1. [Akash Kumar Dhaka, 2017](http://www.speech.kth.se/glu2017/papers/GLU2017_paper_5.pdf)

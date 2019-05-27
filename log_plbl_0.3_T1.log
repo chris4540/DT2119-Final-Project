@@ -1,0 +1,311 @@
+========CONFIG===========
+part_labeled =  0.3
+temp =  1.0
+========CONFIG===========
+[Teacher] CyclicLR step size =  20
+Train Time used: 5 	 Loss: 1108.651 | Train Acc: 12.359% (39376/318596)
+Using the default mapping tsv
+[Eval] Valid Acc. : 32.77% 	 (17739/54138)
+[Eval] Test Acc. : 30.89% 	 (17586/56926)
+Train Time used: 4 	 Loss: 843.786 | Train Acc: 25.506% (81262/318596)
+[Eval] Valid Acc. : 43.75% 	 (23685/54138)
+[Eval] Test Acc. : 41.72% 	 (23748/56926)
+Train Time used: 4 	 Loss: 593.591 | Train Acc: 41.570% (132440/318596)
+[Eval] Valid Acc. : 53.71% 	 (29078/54138)
+[Eval] Test Acc. : 52.66% 	 (29976/56926)
+Train Time used: 4 	 Loss: 506.489 | Train Acc: 49.414% (157430/318596)
+[Eval] Valid Acc. : 56.73% 	 (30715/54138)
+[Eval] Test Acc. : 55.60% 	 (31651/56926)
+Train Time used: 4 	 Loss: 473.800 | Train Acc: 52.434% (167053/318596)
+[Eval] Valid Acc. : 59.24% 	 (32074/54138)
+[Eval] Test Acc. : 58.14% 	 (33097/56926)
+Train Time used: 4 	 Loss: 438.886 | Train Acc: 55.338% (176304/318596)
+[Eval] Valid Acc. : 63.13% 	 (34176/54138)
+[Eval] Test Acc. : 62.32% 	 (35475/56926)
+Train Time used: 4 	 Loss: 382.359 | Train Acc: 60.577% (192996/318596)
+[Eval] Valid Acc. : 66.49% 	 (35995/54138)
+[Eval] Test Acc. : 64.96% 	 (36981/56926)
+Train Time used: 4 	 Loss: 357.911 | Train Acc: 63.221% (201419/318596)
+[Eval] Valid Acc. : 66.79% 	 (36161/54138)
+[Eval] Test Acc. : 65.37% 	 (37212/56926)
+Train Time used: 4 	 Loss: 352.667 | Train Acc: 63.410% (202023/318596)
+[Eval] Valid Acc. : 66.88% 	 (36205/54138)
+[Eval] Test Acc. : 65.34% 	 (37194/56926)
+Train Time used: 4 	 Loss: 378.783 | Train Acc: 61.468% (195834/318596)
+[Eval] Valid Acc. : 67.23% 	 (36397/54138)
+[Eval] Test Acc. : 65.68% 	 (37391/56926)
+Train Time used: 4 	 Loss: 320.808 | Train Acc: 66.912% (213179/318596)
+[Eval] Valid Acc. : 69.14% 	 (37429/54138)
+[Eval] Test Acc. : 68.45% 	 (38964/56926)
+Train Time used: 4 	 Loss: 300.766 | Train Acc: 68.744% (219017/318596)
+[Eval] Valid Acc. : 69.88% 	 (37833/54138)
+[Eval] Test Acc. : 68.64% 	 (39072/56926)
+Train Time used: 4 	 Loss: 298.053 | Train Acc: 68.836% (219310/318596)
+[Eval] Valid Acc. : 68.97% 	 (37338/54138)
+[Eval] Test Acc. : 67.90% 	 (38651/56926)
+Train Time used: 4 	 Loss: 278.473 | Train Acc: 70.679% (225179/318596)
+[Eval] Valid Acc. : 71.90% 	 (38924/54138)
+[Eval] Test Acc. : 70.79% 	 (40298/56926)
+Train Time used: 4 	 Loss: 247.380 | Train Acc: 73.870% (235346/318596)
+[Eval] Valid Acc. : 72.29% 	 (39138/54138)
+[Eval] Test Acc. : 70.87% 	 (40341/56926)
+Train Time used: 4 	 Loss: 246.356 | Train Acc: 74.037% (235880/318596)
+[Eval] Valid Acc. : 71.67% 	 (38798/54138)
+[Eval] Test Acc. : 70.17% 	 (39943/56926)
+Train Time used: 4 	 Loss: 255.510 | Train Acc: 72.748% (231772/318596)
+[Eval] Valid Acc. : 71.25% 	 (38573/54138)
+[Eval] Test Acc. : 69.64% 	 (39644/56926)
+Train Time used: 4 	 Loss: 229.191 | Train Acc: 75.422% (240293/318596)
+[Eval] Valid Acc. : 73.30% 	 (39682/54138)
+[Eval] Test Acc. : 71.86% 	 (40907/56926)
+Train Time used: 4 	 Loss: 208.647 | Train Acc: 77.934% (248296/318596)
+[Eval] Valid Acc. : 73.51% 	 (39798/54138)
+[Eval] Test Acc. : 71.95% 	 (40958/56926)
+Train Time used: 4 	 Loss: 216.754 | Train Acc: 77.021% (245385/318596)
+[Eval] Valid Acc. : 68.38% 	 (37019/54138)
+[Eval] Test Acc. : 67.02% 	 (38149/56926)
+Train Time used: 4 	 Loss: 249.454 | Train Acc: 73.286% (233487/318596)
+[Eval] Valid Acc. : 72.59% 	 (39297/54138)
+[Eval] Test Acc. : 70.93% 	 (40378/56926)
+Train Time used: 4 	 Loss: 197.610 | Train Acc: 78.877% (251298/318596)
+[Eval] Valid Acc. : 73.80% 	 (39956/54138)
+[Eval] Test Acc. : 72.02% 	 (41000/56926)
+Train Time used: 4 	 Loss: 182.326 | Train Acc: 80.641% (256920/318596)
+[Eval] Valid Acc. : 73.50% 	 (39793/54138)
+[Eval] Test Acc. : 71.84% 	 (40898/56926)
+Train Time used: 4 	 Loss: 187.197 | Train Acc: 79.849% (254396/318596)
+[Eval] Valid Acc. : 71.54% 	 (38730/54138)
+[Eval] Test Acc. : 69.30% 	 (39450/56926)
+Train Time used: 4 	 Loss: 180.212 | Train Acc: 80.412% (256190/318596)
+[Eval] Valid Acc. : 73.59% 	 (39840/54138)
+[Eval] Test Acc. : 71.91% 	 (40936/56926)
+Train Time used: 4 	 Loss: 151.784 | Train Acc: 83.991% (267593/318596)
+[Eval] Valid Acc. : 73.77% 	 (39939/54138)
+[Eval] Test Acc. : 72.17% 	 (41082/56926)
+Train Time used: 4 	 Loss: 150.177 | Train Acc: 84.087% (267899/318596)
+[Eval] Valid Acc. : 72.39% 	 (39193/54138)
+[Eval] Test Acc. : 70.42% 	 (40087/56926)
+Train Time used: 4 	 Loss: 182.038 | Train Acc: 80.076% (255118/318596)
+[Eval] Valid Acc. : 72.36% 	 (39172/54138)
+[Eval] Test Acc. : 71.00% 	 (40418/56926)
+Train Time used: 4 	 Loss: 153.839 | Train Acc: 83.293% (265368/318596)
+[Eval] Valid Acc. : 73.93% 	 (40023/54138)
+[Eval] Test Acc. : 71.74% 	 (40838/56926)
+Train Time used: 4 	 Loss: 131.411 | Train Acc: 86.139% (274434/318596)
+[Eval] Valid Acc. : 74.11% 	 (40119/54138)
+[Eval] Test Acc. : 71.74% 	 (40838/56926)
+Train Time used: 4 	 Loss: 128.425 | Train Acc: 86.470% (275489/318596)
+[Eval] Valid Acc. : 73.40% 	 (39739/54138)
+[Eval] Test Acc. : 70.94% 	 (40383/56926)
+Train Time used: 4 	 Loss: 130.548 | Train Acc: 85.765% (273243/318596)
+[Eval] Valid Acc. : 73.65% 	 (39872/54138)
+[Eval] Test Acc. : 71.64% 	 (40784/56926)
+Train Time used: 4 	 Loss: 108.465 | Train Acc: 88.473% (281871/318596)
+[Eval] Valid Acc. : 73.98% 	 (40050/54138)
+[Eval] Test Acc. : 71.75% 	 (40842/56926)
+Train Time used: 4 	 Loss: 102.428 | Train Acc: 89.350% (284665/318596)
+[Eval] Valid Acc. : 73.57% 	 (39828/54138)
+[Eval] Test Acc. : 71.10% 	 (40474/56926)
+Train Time used: 4 	 Loss: 113.702 | Train Acc: 87.852% (279893/318596)
+[Eval] Valid Acc. : 71.10% 	 (38492/54138)
+[Eval] Test Acc. : 69.38% 	 (39493/56926)
+Train Time used: 4 	 Loss: 122.430 | Train Acc: 86.313% (274990/318596)
+[Eval] Valid Acc. : 73.12% 	 (39588/54138)
+[Eval] Test Acc. : 71.14% 	 (40498/56926)
+Train Time used: 4 	 Loss: 95.910 | Train Acc: 89.793% (286076/318596)
+[Eval] Valid Acc. : 73.46% 	 (39768/54138)
+[Eval] Test Acc. : 71.45% 	 (40675/56926)
+Train Time used: 4 	 Loss: 91.673 | Train Acc: 90.168% (287272/318596)
+[Eval] Valid Acc. : 72.98% 	 (39511/54138)
+[Eval] Test Acc. : 70.81% 	 (40308/56926)
+Train Time used: 4 	 Loss: 97.639 | Train Acc: 89.245% (284332/318596)
+[Eval] Valid Acc. : 72.94% 	 (39487/54138)
+[Eval] Test Acc. : 70.68% 	 (40235/56926)
+Train Time used: 4 	 Loss: 85.645 | Train Acc: 90.675% (288888/318596)
+[Eval] Valid Acc. : 73.34% 	 (39707/54138)
+[Eval] Test Acc. : 71.47% 	 (40683/56926)
+Train Time used: 4 	 Loss: 72.545 | Train Acc: 92.322% (294134/318596)
+[Eval] Valid Acc. : 73.12% 	 (39585/54138)
+[Eval] Test Acc. : 71.18% 	 (40518/56926)
+Train Time used: 4 	 Loss: 70.981 | Train Acc: 92.435% (294493/318596)
+[Eval] Valid Acc. : 72.88% 	 (39455/54138)
+[Eval] Test Acc. : 70.72% 	 (40259/56926)
+Train Time used: 4 	 Loss: 72.486 | Train Acc: 92.084% (293376/318596)
+[Eval] Valid Acc. : 73.12% 	 (39584/54138)
+[Eval] Test Acc. : 71.20% 	 (40533/56926)
+Train Time used: 4 	 Loss: 60.721 | Train Acc: 93.564% (298091/318596)
+[Eval] Valid Acc. : 73.22% 	 (39642/54138)
+[Eval] Test Acc. : 71.08% 	 (40465/56926)
+Train Time used: 4 	 Loss: 56.285 | Train Acc: 94.108% (299825/318596)
+[Eval] Valid Acc. : 72.76% 	 (39389/54138)
+[Eval] Test Acc. : 70.71% 	 (40252/56926)
+Train Time used: 4 	 Loss: 57.408 | Train Acc: 93.867% (299055/318596)
+[Eval] Valid Acc. : 72.56% 	 (39282/54138)
+[Eval] Test Acc. : 70.42% 	 (40085/56926)
+Train Time used: 4 	 Loss: 54.495 | Train Acc: 94.119% (299858/318596)
+[Eval] Valid Acc. : 72.34% 	 (39161/54138)
+[Eval] Test Acc. : 70.52% 	 (40144/56926)
+Train Time used: 4 	 Loss: 46.103 | Train Acc: 95.196% (303291/318596)
+[Eval] Valid Acc. : 72.62% 	 (39314/54138)
+[Eval] Test Acc. : 70.59% 	 (40184/56926)
+Train Time used: 4 	 Loss: 45.304 | Train Acc: 95.266% (303513/318596)
+[Eval] Valid Acc. : 72.30% 	 (39141/54138)
+[Eval] Test Acc. : 70.31% 	 (40022/56926)
+Train Time used: 4 	 Loss: 48.274 | Train Acc: 94.871% (302255/318596)
+[Eval] Valid Acc. : 72.39% 	 (39190/54138)
+[Eval] Test Acc. : 70.39% 	 (40072/56926)
+Finish training teacher!
+[Result][Teacher] Valid. Acc. : 74.1051% 	 Test Acc.: 71.7387%
+[Student] CyclicLR step size =  48
+LogitsTrain Time used: 9 	 Loss: 962.631
+[Eval] Valid Acc. : 26.90% 	 (14562/54138)
+[Eval] Test Acc. : 25.76% 	 (14664/56926)
+LogitsTrain Time used: 9 	 Loss: 627.254
+[Eval] Valid Acc. : 47.55% 	 (25741/54138)
+[Eval] Test Acc. : 46.45% 	 (26441/56926)
+LogitsTrain Time used: 9 	 Loss: 391.108
+[Eval] Valid Acc. : 58.94% 	 (31909/54138)
+[Eval] Test Acc. : 58.05% 	 (33044/56926)
+LogitsTrain Time used: 9 	 Loss: 311.727
+[Eval] Valid Acc. : 61.59% 	 (33342/54138)
+[Eval] Test Acc. : 60.52% 	 (34449/56926)
+LogitsTrain Time used: 9 	 Loss: 289.505
+[Eval] Valid Acc. : 63.14% 	 (34181/54138)
+[Eval] Test Acc. : 62.34% 	 (35487/56926)
+LogitsTrain Time used: 9 	 Loss: 281.702
+[Eval] Valid Acc. : 65.18% 	 (35288/54138)
+[Eval] Test Acc. : 63.65% 	 (36235/56926)
+LogitsTrain Time used: 9 	 Loss: 234.774
+[Eval] Valid Acc. : 67.41% 	 (36494/54138)
+[Eval] Test Acc. : 66.02% 	 (37583/56926)
+LogitsTrain Time used: 9 	 Loss: 212.335
+[Eval] Valid Acc. : 67.98% 	 (36805/54138)
+[Eval] Test Acc. : 66.41% 	 (37806/56926)
+LogitsTrain Time used: 9 	 Loss: 209.339
+[Eval] Valid Acc. : 67.73% 	 (36666/54138)
+[Eval] Test Acc. : 66.11% 	 (37633/56926)
+LogitsTrain Time used: 9 	 Loss: 212.454
+[Eval] Valid Acc. : 67.91% 	 (36765/54138)
+[Eval] Test Acc. : 66.94% 	 (38105/56926)
+LogitsTrain Time used: 9 	 Loss: 193.279
+[Eval] Valid Acc. : 69.52% 	 (37638/54138)
+[Eval] Test Acc. : 68.11% 	 (38772/56926)
+LogitsTrain Time used: 9 	 Loss: 179.552
+[Eval] Valid Acc. : 69.47% 	 (37611/54138)
+[Eval] Test Acc. : 68.29% 	 (38875/56926)
+LogitsTrain Time used: 9 	 Loss: 183.356
+[Eval] Valid Acc. : 69.16% 	 (37440/54138)
+[Eval] Test Acc. : 67.76% 	 (38572/56926)
+LogitsTrain Time used: 9 	 Loss: 187.926
+[Eval] Valid Acc. : 69.29% 	 (37510/54138)
+[Eval] Test Acc. : 67.94% 	 (38677/56926)
+LogitsTrain Time used: 9 	 Loss: 173.467
+[Eval] Valid Acc. : 70.49% 	 (38162/54138)
+[Eval] Test Acc. : 68.72% 	 (39121/56926)
+LogitsTrain Time used: 9 	 Loss: 163.171
+[Eval] Valid Acc. : 70.29% 	 (38051/54138)
+[Eval] Test Acc. : 68.90% 	 (39222/56926)
+LogitsTrain Time used: 9 	 Loss: 169.747
+[Eval] Valid Acc. : 69.17% 	 (37445/54138)
+[Eval] Test Acc. : 67.68% 	 (38525/56926)
+LogitsTrain Time used: 9 	 Loss: 171.874
+[Eval] Valid Acc. : 70.14% 	 (37975/54138)
+[Eval] Test Acc. : 68.33% 	 (38897/56926)
+LogitsTrain Time used: 9 	 Loss: 160.860
+[Eval] Valid Acc. : 70.69% 	 (38268/54138)
+[Eval] Test Acc. : 69.25% 	 (39421/56926)
+LogitsTrain Time used: 9 	 Loss: 152.611
+[Eval] Valid Acc. : 70.69% 	 (38270/54138)
+[Eval] Test Acc. : 69.17% 	 (39374/56926)
+LogitsTrain Time used: 9 	 Loss: 160.439
+[Eval] Valid Acc. : 69.65% 	 (37708/54138)
+[Eval] Test Acc. : 67.95% 	 (38680/56926)
+LogitsTrain Time used: 9 	 Loss: 162.026
+[Eval] Valid Acc. : 70.27% 	 (38045/54138)
+[Eval] Test Acc. : 68.67% 	 (39093/56926)
+LogitsTrain Time used: 9 	 Loss: 150.322
+[Eval] Valid Acc. : 70.99% 	 (38434/54138)
+[Eval] Test Acc. : 69.45% 	 (39535/56926)
+LogitsTrain Time used: 9 	 Loss: 145.067
+[Eval] Valid Acc. : 70.68% 	 (38265/54138)
+[Eval] Test Acc. : 68.68% 	 (39095/56926)
+LogitsTrain Time used: 9 	 Loss: 154.387
+[Eval] Valid Acc. : 70.29% 	 (38056/54138)
+[Eval] Test Acc. : 68.35% 	 (38908/56926)
+LogitsTrain Time used: 9 	 Loss: 153.235
+[Eval] Valid Acc. : 70.85% 	 (38356/54138)
+[Eval] Test Acc. : 69.01% 	 (39285/56926)
+LogitsTrain Time used: 9 	 Loss: 142.145
+[Eval] Valid Acc. : 71.26% 	 (38581/54138)
+[Eval] Test Acc. : 69.49% 	 (39560/56926)
+LogitsTrain Time used: 9 	 Loss: 139.204
+[Eval] Valid Acc. : 70.75% 	 (38301/54138)
+[Eval] Test Acc. : 69.01% 	 (39284/56926)
+LogitsTrain Time used: 9 	 Loss: 148.369
+[Eval] Valid Acc. : 70.16% 	 (37983/54138)
+[Eval] Test Acc. : 68.06% 	 (38744/56926)
+LogitsTrain Time used: 9 	 Loss: 144.661
+[Eval] Valid Acc. : 71.04% 	 (38462/54138)
+[Eval] Test Acc. : 69.23% 	 (39412/56926)
+LogitsTrain Time used: 9 	 Loss: 133.723
+[Eval] Valid Acc. : 71.09% 	 (38486/54138)
+[Eval] Test Acc. : 69.37% 	 (39488/56926)
+LogitsTrain Time used: 9 	 Loss: 134.747
+[Eval] Valid Acc. : 71.08% 	 (38480/54138)
+[Eval] Test Acc. : 68.98% 	 (39267/56926)
+LogitsTrain Time used: 9 	 Loss: 143.864
+[Eval] Valid Acc. : 70.76% 	 (38310/54138)
+[Eval] Test Acc. : 68.52% 	 (39004/56926)
+LogitsTrain Time used: 9 	 Loss: 136.894
+[Eval] Valid Acc. : 71.03% 	 (38456/54138)
+[Eval] Test Acc. : 69.07% 	 (39318/56926)
+LogitsTrain Time used: 9 	 Loss: 127.478
+[Eval] Valid Acc. : 70.84% 	 (38353/54138)
+[Eval] Test Acc. : 69.08% 	 (39326/56926)
+LogitsTrain Time used: 9 	 Loss: 130.715
+[Eval] Valid Acc. : 70.84% 	 (38351/54138)
+[Eval] Test Acc. : 68.70% 	 (39108/56926)
+LogitsTrain Time used: 9 	 Loss: 139.084
+[Eval] Valid Acc. : 70.56% 	 (38199/54138)
+[Eval] Test Acc. : 68.45% 	 (38964/56926)
+LogitsTrain Time used: 9 	 Loss: 130.494
+[Eval] Valid Acc. : 71.10% 	 (38491/54138)
+[Eval] Test Acc. : 69.29% 	 (39445/56926)
+LogitsTrain Time used: 9 	 Loss: 121.949
+[Eval] Valid Acc. : 71.11% 	 (38497/54138)
+[Eval] Test Acc. : 69.15% 	 (39363/56926)
+LogitsTrain Time used: 9 	 Loss: 126.433
+[Eval] Valid Acc. : 70.84% 	 (38354/54138)
+[Eval] Test Acc. : 68.63% 	 (39071/56926)
+LogitsTrain Time used: 9 	 Loss: 135.439
+[Eval] Valid Acc. : 70.62% 	 (38231/54138)
+[Eval] Test Acc. : 68.78% 	 (39154/56926)
+LogitsTrain Time used: 9 	 Loss: 124.161
+[Eval] Valid Acc. : 70.90% 	 (38384/54138)
+[Eval] Test Acc. : 69.07% 	 (39321/56926)
+LogitsTrain Time used: 9 	 Loss: 116.911
+[Eval] Valid Acc. : 70.96% 	 (38414/54138)
+[Eval] Test Acc. : 68.68% 	 (39098/56926)
+LogitsTrain Time used: 9 	 Loss: 123.167
+[Eval] Valid Acc. : 70.03% 	 (37911/54138)
+[Eval] Test Acc. : 68.09% 	 (38763/56926)
+LogitsTrain Time used: 9 	 Loss: 128.925
+[Eval] Valid Acc. : 70.75% 	 (38302/54138)
+[Eval] Test Acc. : 68.56% 	 (39027/56926)
+LogitsTrain Time used: 9 	 Loss: 118.304
+[Eval] Valid Acc. : 70.97% 	 (38421/54138)
+[Eval] Test Acc. : 68.80% 	 (39166/56926)
+LogitsTrain Time used: 9 	 Loss: 112.769
+[Eval] Valid Acc. : 70.71% 	 (38282/54138)
+[Eval] Test Acc. : 68.44% 	 (38961/56926)
+LogitsTrain Time used: 9 	 Loss: 121.220
+[Eval] Valid Acc. : 70.23% 	 (38020/54138)
+[Eval] Test Acc. : 68.07% 	 (38751/56926)
+LogitsTrain Time used: 9 	 Loss: 124.341
+[Eval] Valid Acc. : 70.43% 	 (38131/54138)
+[Eval] Test Acc. : 68.69% 	 (39101/56926)
+LogitsTrain Time used: 9 	 Loss: 112.798
+[Eval] Valid Acc. : 70.90% 	 (38383/54138)
+[Eval] Test Acc. : 68.83% 	 (39185/56926)
+Finish training student!
+[Result][Student] Valid. Acc. : 71.2642% 	 Test Acc.: 69.4937%
