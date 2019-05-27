@@ -36,8 +36,6 @@ if __name__ == "__main__":
     lbl_dataset, unlbl_dataset = torch.utils.data.random_split(
         traindata, [n_labels, n_unlables])
 
-    if n_labels < Config.batch_size:
-        Config.batch_size = n_labels
     #
     lbl_trainloader = DataLoader(dataset=lbl_dataset, batch_size=Config.batch_size,
                              shuffle=Config.shuffle, collate_fn=pad_seqs_to_batch)
@@ -49,7 +47,8 @@ if __name__ == "__main__":
     testloader = DataLoader(dataset=testdata, batch_size=Config.batch_size,
                             collate_fn=pad_seqs_to_batch)
     # ========================================================================
-
+    if n_labels < Config.batch_size:
+        Config.batch_size = n_labels
     # ========================================================================
     # train the baseline network
     net = LSTMClassifier(
@@ -57,7 +56,7 @@ if __name__ == "__main__":
             n_class=Config.n_classes,
             n_hidden=Config.n_hidden_nodes, num_layers=3)
 
-    step_size = 2*np.int(np.floor(len(lbl_dataset)/Config.batch_size))
+    step_size = 2*np.int(np.floor(n_labels/Config.batch_size))
     print("[baseline] CyclicLR step size = ", step_size)
     print("[baseline] batch_size = ", Config.batch_size)
     optimizer = optim.SGD(

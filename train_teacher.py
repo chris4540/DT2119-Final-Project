@@ -46,8 +46,8 @@ if __name__ == "__main__":
     testloader = DataLoader(dataset=testdata, batch_size=Config.batch_size,
                             collate_fn=pad_seqs_to_batch)
     # ========================================================================
-
-
+    if n_labels < Config.batch_size:
+        Config.batch_size = n_labels
     # ========================================================================
     # train teacher
     teacher = BiLSTMClassifier(
@@ -55,7 +55,7 @@ if __name__ == "__main__":
             n_class=Config.n_classes,
             n_hidden=Config.n_hidden_nodes, num_layers=3)
 
-    step_size = 2*np.int(np.floor(len(lbl_dataset)/Config.batch_size))
+    step_size = 2*np.int(np.floor(n_labels/Config.batch_size))
     optimizer = optim.SGD(
         teacher.parameters(), lr=Config.init_lr, momentum=Config.momentum,
         weight_decay=Config.weight_decay)
@@ -64,6 +64,7 @@ if __name__ == "__main__":
     teacher.to(device)
     # Print out the configuration
     print("[Teacher] CyclicLR step size = ", step_size)
+    print("[Teacher] batch_size = ", Config.batch_size)
     best_valid_acc = -np.inf
     for epoch in range(Config.n_epochs):
         # train the network
