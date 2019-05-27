@@ -45,7 +45,7 @@ def evalation(data_loader, model, device='cuda'):
     score = correct / total
     return score
 
-def train_one_epoch(train_loader, model, optimizer, scheduler=None, device="cuda"):
+def train(train_loader, model, optimizer, scheduler=None, device="cuda"):
     """
     Run one train epoch
     """

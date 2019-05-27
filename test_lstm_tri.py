@@ -9,11 +9,12 @@ from utils.dataloader import TIMITDataset
 from utils.dataloader import pad_seqs_to_batch
 from models.lstm import LSTMClassifier
 import torch.backends.cudnn as cudnn
-from utils import train_one_epoch
+from utils import train
 import numpy as np
 
 class Config:
     batch_size = 100
+    n_epochs = 50
     init_lr = 0.01  # this would not take effect as using cyclic lr
     momentum = 0.9
     weight_decay = 5e-4
@@ -32,10 +33,16 @@ if __name__ == "__main__":
     traindata = TIMITDataset(root="./data", split="train")
     trainloader = DataLoader(dataset=traindata, batch_size=Config.batch_size,
                              shuffle=Config.shuffle, collate_fn=pad_seqs_to_batch)
-    # ==============================
-    # optimizer = optim.Adam(net.parameters(), lr=0.05)
-    step_size = 2*np.int(np.floor(len(traindata)/Config.batch_size))
+    validdata = TIMITDataset(root="./data", split="valid")
+    validloader = DataLoader(dataset=validdata, batch_size=Config.batch_size,
+                            collate_fn=pad_seqs_to_batch)
+    testdata =  TIMITDataset(root="./data", split="test")
+    testloader = DataLoader(dataset=testdata, batch_size=Config.batch_size,
+                            collate_fn=pad_seqs_to_batch)
+    # ========================================================================
 
+    # ========================================================================
+    step_size = 2*np.int(np.floor(len(traindata)/Config.batch_size))
     optimizer = optim.SGD(
         net.parameters(), lr=Config.init_lr, momentum=Config.momentum,
         weight_decay=Config.weight_decay)
@@ -44,5 +51,8 @@ if __name__ == "__main__":
     net.to(device)
     # Print out the configuration
     print("The CyclicLR step size = ", step_size)
-    for epoch in range(30):
-        train_one_epoch(trainloader, net, optimizer, scheduler=scheduler, device=device)
+    for epoch in range(Config.n_epochs):
+        # train the network
+        train(trainloader, net, optimizer, scheduler=scheduler, device=device)
+        # evaluate it
+
