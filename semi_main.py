@@ -17,7 +17,7 @@ from models.bilstm import BiLSTMClassifier
 
 class Config:
     batch_size = 100
-    n_epochs = 1
+    n_epochs = 3
     init_lr = 0.01  # this would not take effect as using cyclic lr
     momentum = 0.9
     weight_decay = 5e-4
@@ -48,7 +48,8 @@ def repad_batchout(batch_out, seq_lengths, padding_val=0):
     ret, _ = pad_packed_sequence(pack, padding_value=padding_val)
     return ret
 
-def get_kd_loss(teacher_logits, student_logits, seq_lens):
+# def get_kd_loss(teacher_logits, student_logits, seq_lens):
+def get_kd_loss(student_logits, teacher_logits, seq_lens):
 
     # get n_batchs
     n_batchs = student_logits.size(1)
@@ -136,16 +137,16 @@ if __name__ == "__main__":
             n_hidden=Config.n_hidden_nodes, num_layers=1)
     student.to(device)
     optimizer = optim.SGD(
-        teacher.parameters(), lr=Config.init_lr, momentum=Config.momentum,
+        student.parameters(), lr=Config.init_lr, momentum=Config.momentum,
         weight_decay=Config.weight_decay)
     scheduler = optim.lr_scheduler.CyclicLR(
         optimizer, Config.eta_min, Config.eta_max, step_size_up=step_size)
     from tqdm import tqdm
     from torch.optim.lr_scheduler import CyclicLR
     from torch.optim.lr_scheduler import StepLR
-    student.train()
     for epoch in range(Config.n_epochs):
         train_loss = 0
+        student.train()
         for pack_inputs, _ in tqdm(unlbl_trainloader, desc="Train"):
             pack_inputs = pack_inputs.to(device)
 
