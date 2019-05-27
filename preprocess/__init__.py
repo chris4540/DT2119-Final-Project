@@ -7,7 +7,7 @@ try:
     import soundfile
 except ModuleNotFoundError:
     import pysoundfile as soundfile
-    
+
 class TIMITFeatureExtractor:
     """
     Simple class to:
