@@ -1,11 +1,16 @@
 import numpy as np
 import pandas as pd
 import torch
+import torch.nn as nn
 import time
 from tqdm import tqdm
 from torch.nn.utils.rnn import pad_packed_sequence
+from torch.nn.utils.rnn import pack_padded_sequence
 from torch.optim.lr_scheduler import CyclicLR
 from torch.optim.lr_scheduler import StepLR
+from torch.nn.functional import softmax
+from torch.nn.functional import log_softmax
+
 
 class Singleton(type):
     _instances = {}
@@ -173,5 +178,82 @@ def train(train_loader, model, optimizer, scheduler=None, device="cuda"):
         (used_time, train_loss, acc, correct, total))
 
 
-def train_with_teacher():
-    pass
+def train_with_logits(
+        train_loader, model, teacher_model, temp, optimizer,
+        scheduler=None, device="cuda"):
+    """
+    Train with a probabilistic logits
+    """
+
+    # switch to train mode
+    model.train()
+    teacher_model.eval()
+
+    start_time = time.time()
+    train_loss = 0
+
+    for i, (pack_inputs, _) in tqdm(enumerate(train_loader), desc="LogitsTrain"):
+        _, seq_lens = pad_packed_sequence(pack_inputs)
+        pack_inputs = pack_inputs.to(device)
+
+        # compute teacher logits
+        with torch.no_grad():
+            target_logit = teacher_model(pack_inputs)
+
+        # compute output
+        output = model(pack_inputs)
+        loss = get_kd_loss(output, target_logit, seq_lens, temp=temp)
+
+        # compute gradient and do SGD step
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        loss = loss.float()
+
+        # measure accuracy and record loss
+        train_loss += loss.item()
+
+        if isinstance(scheduler, CyclicLR):
+            scheduler.step()
+
+    if isinstance(scheduler, StepLR):
+        scheduler.step()
+
+    # print statistics
+    train_loss = train_loss / len(train_loader)
+    used_time = time.time() - start_time
+    print('LogitsTrain Time used: %d \t Loss: %.3f' % (used_time, train_loss))
+
+def get_kd_loss(student_logits, teacher_logits, seq_lens, temp):
+
+    # get n_batchs
+    n_batchs = student_logits.size(1)
+
+    # repad
+    student_logits = repad_batchout(student_logits, seq_lens)
+    teacher_logits = repad_batchout(teacher_logits, seq_lens)
+
+    sum_kd_loss = nn.KLDivLoss(reduction='sum')(
+            log_softmax(student_logits/temp, dim=-1),
+            softmax(teacher_logits/temp, dim=-1))
+    loss = sum_kd_loss / n_batchs
+    return loss
+
+def repad_batchout(batch_out, seq_lengths, padding_val=0):
+    """
+    Re-pad the batch output of a network
+    Args:
+        batch_out (Tensor): batch output of a network.
+            Size = (max_seq_len, n_batch, n_classes)
+        seq_lengths (list/LongTensor)
+
+    Return:
+        same as input, but repadded with padding_val
+    """
+    # re-pack it as the packed seqences
+    pack = pack_padded_sequence(batch_out, seq_lengths)
+
+    # de-pack it and fill zeros
+    ret, _ = pad_packed_sequence(pack, padding_value=padding_val)
+    return ret
