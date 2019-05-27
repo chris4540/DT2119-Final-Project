@@ -192,7 +192,7 @@ def train_with_logits(
     start_time = time.time()
     train_loss = 0
 
-    for i, (pack_inputs, _) in tqdm(enumerate(train_loader), desc="LogitsTrain"):
+    for pack_inputs, _ in tqdm(train_loader, desc="LogitsTrain"):
         _, seq_lens = pad_packed_sequence(pack_inputs)
         pack_inputs = pack_inputs.to(device)
 
