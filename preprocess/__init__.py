@@ -1,10 +1,13 @@
 from . import features
 import scipy
 import scipy.signal
-import soundfile
 import numpy as np
 from pathlib import Path
-
+try:
+    import soundfile
+except ModuleNotFoundError:
+    import pysoundfile as soundfile
+    
 class TIMITFeatureExtractor:
     """
     Simple class to:
