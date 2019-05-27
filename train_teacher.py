@@ -1,21 +1,14 @@
 import os
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import numpy as np
-from tqdm import tqdm
-from torch.nn.functional import softmax
-from torch.nn.functional import log_softmax
 import torch.backends.cudnn as cudnn
-from torch.nn.utils.rnn import pack_padded_sequence
-from torch.nn.utils.rnn import pad_packed_sequence
 from torch.utils.data import DataLoader
 from utils import train
 from utils import evalation
-from utils import train_with_teacher_model
 from utils.dataloader import TIMITDataset
 from utils.dataloader import pad_seqs_to_batch
-from models.lstm import LSTMClassifier
 from models.bilstm import BiLSTMClassifier
 from config import Config
 

@@ -3,14 +3,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import numpy as np
-from tqdm import tqdm
-from torch.nn.functional import softmax
-from torch.nn.functional import log_softmax
 import torch.backends.cudnn as cudnn
-from torch.nn.utils.rnn import pack_padded_sequence
-from torch.nn.utils.rnn import pad_packed_sequence
 from torch.utils.data import DataLoader
-from utils import train
 from utils import evalation
 from utils import train_with_teacher_model
 from utils.dataloader import TIMITDataset
@@ -98,7 +92,7 @@ if __name__ == "__main__":
             }
 
             torch.save(saving_dict,
-                'student_plbl{plbl}_T{temp}.chkpt.tar'.format(
+                Config.student_tar_fmt.format(
                     plbl=Config.part_labeled,
                     temp=Config.temp))
 

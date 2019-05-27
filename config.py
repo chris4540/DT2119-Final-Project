@@ -13,3 +13,5 @@ class Config:
     n_classes = 48
     temp = 1
     teacher_tar_fmt = 'teacher_plbl{plbl}.tar'
+    baseline_tar_fmt = 'baseline_plbl{plbl}.tar'
+    student_tar_fmt = 'student_plbl{plbl}_T{temp}.tar'
