@@ -237,7 +237,7 @@ def get_kd_loss(student_logits, teacher_logits, seq_lens, temp):
     sum_kd_loss = nn.KLDivLoss(reduction='sum')(
             log_softmax(student_logits/temp, dim=-1),
             softmax(teacher_logits/temp, dim=-1))
-    loss = sum_kd_loss / n_batchs
+    loss = (temp**2)*sum_kd_loss / n_batchs
     return loss
 
 def repad_batchout(batch_out, seq_lengths, padding_val=0):
