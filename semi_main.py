@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -34,6 +35,17 @@ class Config:
 
 
 if __name__ == "__main__":
+
+    # configuration
+    # obtain part_labeled
+    Config.part_labeled = float(os.environ.get('part_labeled', None))
+    Config.temp = float(os.environ.get('temp', None))
+    print("========CONFIG===========")
+    print("part_labeled = ", Config.part_labeled)
+    print("temp = ", Config.temp)
+    print("========CONFIG===========")
+
+    #
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     if device == 'cuda':
         cudnn.benchmark = True
@@ -89,6 +101,16 @@ if __name__ == "__main__":
             best_valid_acc = valid_acc
             best_teacher = teacher.state_dict()
             corresp_test_acc = test_acc
+            saving_dict = {
+                'epoch': epoch+1,
+                'state_dict': best_teacher,
+                'best_valid_acc': best_valid_acc,
+                'corresp_test_acc': corresp_test_acc
+            }
+            torch.save(saving_dict,
+                'teacher_plbl{plbl}_T{temp}.chkpt.tar'.format(
+                    plbl=Config.part_labeled,
+                    temp=Config.temp))
     # ========================================================================
     print("Finish training teacher!")
     teacher.load_state_dict(best_teacher)
@@ -137,3 +159,7 @@ if __name__ == "__main__":
                 'student_plbl{plbl}_T{temp}.chkpt.tar'.format(
                     plbl=Config.part_labeled,
                     temp=Config.temp))
+    print("Finish training student!")
+    print(
+        "[Result][Student] Valid. Acc. : {vacc:.4f}% \t Test Acc.: {tacc:.4f}%".format(
+            vacc=best_valid_acc*100, tacc=corresp_test_acc*100))
