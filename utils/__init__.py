@@ -178,7 +178,7 @@ def train(train_loader, model, optimizer, scheduler=None, device="cuda"):
         (used_time, train_loss, acc, correct, total))
 
 
-def train_with_logits(
+def train_with_teacher_model(
         train_loader, model, teacher_model, temp, optimizer,
         scheduler=None, device="cuda"):
     """

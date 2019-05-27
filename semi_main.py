@@ -11,7 +11,7 @@ from torch.nn.utils.rnn import pad_packed_sequence
 from torch.utils.data import DataLoader
 from utils import train
 from utils import evalation
-from utils import train_with_logits
+from utils import train_with_teacher_model
 from utils.dataloader import TIMITDataset
 from utils.dataloader import pad_seqs_to_batch
 from models.lstm import LSTMClassifier
@@ -114,7 +114,7 @@ if __name__ == "__main__":
     best_valid_acc = -np.inf
     for epoch in range(Config.n_epochs):
         # train with teacher logits
-        train_with_logits(
+        train_with_teacher_model(
             unlbl_trainloader, student, teacher, Config.temp,
             optimizer, scheduler=scheduler, device=device)
         # evaluate it
