@@ -171,3 +171,7 @@ def train(train_loader, model, optimizer, scheduler=None, device="cuda"):
     used_time = time.time() - start_time
     print('Train Time used: %d \t Loss: %.3f | Train Acc: %.3f%% (%d/%d)' %
         (used_time, train_loss, acc, correct, total))
+
+
+def train_with_teacher():
+    pass

@@ -51,9 +51,3 @@ class LSTMClassifier(nn.Module):
 
         cross_entropy_loss = -torch.sum(losses) / n_batch
         return cross_entropy_loss
-
-     # def to(self, device):
-     #     super().to(device)
-     #     self.lstm.to(device)
-
-
