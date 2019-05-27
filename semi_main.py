@@ -125,7 +125,7 @@ if __name__ == "__main__":
     student.to(device)
 
     # make optimizer and scheduler
-    step_size = 2*np.int(np.floor(len(unlbl_dataset)/Config.batch_size))
+    step_size = 2*np.int(np.floor(len(traindata)/Config.batch_size))
     print("[Student] CyclicLR step size = ", step_size)
     optimizer = optim.SGD(
         student.parameters(), lr=Config.init_lr, momentum=Config.momentum,
