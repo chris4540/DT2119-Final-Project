@@ -10,11 +10,12 @@ from utils.dataloader import pad_seqs_to_batch
 from models.lstm import LSTMClassifier
 import torch.backends.cudnn as cudnn
 from utils import train
+from utils import evalation
 import numpy as np
 
 class Config:
     batch_size = 100
-    n_epochs = 50
+    n_epochs = 30
     init_lr = 0.01  # this would not take effect as using cyclic lr
     momentum = 0.9
     weight_decay = 5e-4
@@ -55,4 +56,7 @@ if __name__ == "__main__":
         # train the network
         train(trainloader, net, optimizer, scheduler=scheduler, device=device)
         # evaluate it
-
+        valid_acc = evalation(validloader, net, device=device)
+        test_acc =  evalation(testloader, net, device=device)
+        print("valid_acc = ", valid_acc)
+        print("test_acc = ", test_acc)
