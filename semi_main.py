@@ -19,7 +19,7 @@ from models.bilstm import BiLSTMClassifier
 
 class Config:
     batch_size = 100
-    n_epochs = 1
+    n_epochs = 50
     init_lr = 0.01  # this would not take effect as using cyclic lr
     momentum = 0.9
     weight_decay = 5e-4
@@ -66,7 +66,7 @@ if __name__ == "__main__":
     teacher = BiLSTMClassifier(
             n_feature=Config.n_features,
             n_class=Config.n_classes,
-            n_hidden=Config.n_hidden_nodes, num_layers=1)
+            n_hidden=Config.n_hidden_nodes, num_layers=3)
 
     step_size = 2*np.int(np.floor(len(lbl_dataset)/Config.batch_size))
     optimizer = optim.SGD(
@@ -76,7 +76,7 @@ if __name__ == "__main__":
         optimizer, Config.eta_min, Config.eta_max, step_size_up=step_size)
     teacher.to(device)
     # Print out the configuration
-    print("The CyclicLR step size = ", step_size)
+    print("[Teacher] CyclicLR step size = ", step_size)
     best_valid_acc = -np.inf
     for epoch in range(Config.n_epochs):
         # train the network
@@ -99,11 +99,12 @@ if __name__ == "__main__":
     student = LSTMClassifier(
             n_feature=Config.n_features,
             n_class=Config.n_classes,
-            n_hidden=Config.n_hidden_nodes, num_layers=1)
+            n_hidden=Config.n_hidden_nodes, num_layers=3)
     student.to(device)
 
     # make optimizer and scheduler
     step_size = 2*np.int(np.floor(len(unlbl_dataset)/Config.batch_size))
+    print("[Student] CyclicLR step size = ", step_size)
     optimizer = optim.SGD(
         student.parameters(), lr=Config.init_lr, momentum=Config.momentum,
         weight_decay=Config.weight_decay)
