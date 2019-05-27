@@ -35,6 +35,9 @@ if __name__ == "__main__":
     n_unlables = len(traindata) - n_labels
     lbl_dataset, unlbl_dataset = torch.utils.data.random_split(
         traindata, [n_labels, n_unlables])
+
+    if n_labels < Config.batch_size:
+        Config.batch_size = n_labels
     #
     lbl_trainloader = DataLoader(dataset=lbl_dataset, batch_size=Config.batch_size,
                              shuffle=Config.shuffle, collate_fn=pad_seqs_to_batch)
@@ -55,6 +58,8 @@ if __name__ == "__main__":
             n_hidden=Config.n_hidden_nodes, num_layers=3)
 
     step_size = 2*np.int(np.floor(len(lbl_dataset)/Config.batch_size))
+    print("[baseline] CyclicLR step size = ", step_size)
+    print("[baseline] batch_size = ", Config.batch_size)
     optimizer = optim.SGD(
         net.parameters(), lr=Config.init_lr, momentum=Config.momentum,
         weight_decay=Config.weight_decay)
@@ -62,7 +67,6 @@ if __name__ == "__main__":
         optimizer, Config.eta_min, Config.eta_max, step_size_up=step_size)
     net.to(device)
     # Print out the configuration
-    print("[Teacher] CyclicLR step size = ", step_size)
     best_valid_acc = -np.inf
     for epoch in range(Config.n_epochs):
         # train the network
