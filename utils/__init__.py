@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import torch
 import time
-# from tqdm import tqdm
+from tqdm import tqdm
 from torch.nn.utils.rnn import pad_packed_sequence
 from torch.optim.lr_scheduler import CyclicLR
 from torch.optim.lr_scheduler import StepLR
@@ -17,10 +17,9 @@ class Singleton(type):
 class TrainPhnToEvalPhnMapping(metaclass=Singleton):
     """
     Usage:
-
         create the mapping by one of the followings
-        mapping = TrainPhnToEvalPhnMapping(mapping_tsv=....)
-        mapping = TrainPhnToEvalPhnMapping()
+        mapping = TrainPhnToEvalPhnMapping(mapping_tsv=....).get_dict()
+        mapping = TrainPhnToEvalPhnMapping().get_dict()
 
         # use it
         eval_labels = np.vectorize(mapping.get)(train_labels)
@@ -86,18 +85,32 @@ def evalation(data_loader, model, device='cuda'):
     total = 0
     correct = 0
     with torch.no_grad():
-        for inputs, targets in tqdm(data_loader, desc="Evaluating"):
-            # load them to GPU
-            inputs = inputs.to(device)
-            targets = targets.to(device)
-            if device == 'cuda':
-                inputs = inputs.half()
+        for pack_inputs, pack_targets in data_loader:
+            # load them to device
+            pack_inputs = pack_inputs.to(device)
+            pack_targets = pack_targets.to(device)
 
             # predict
-            outputs = model(inputs)
-            _, predicted = outputs.max(1)
-            total += targets.size(0)
-            correct += predicted.eq(targets).sum().item()
+            outputs = model(pack_inputs)
+            _, predicted = outputs.max(-1)
+
+            # calculate mask and select from it
+            padded_targets, _ = pad_packed_sequence(pack_targets, padding_value=-1)
+            mask = (padded_targets != -1)
+            predicted = torch.masked_select(predicted, mask)
+            true_labels = torch.masked_select(padded_targets, mask)
+
+            # translate them back to cpu
+            predicted = predicted.cpu()
+            true_labels = true_labels.cpu()
+
+            # map the training labels to evaluation labels
+            mapping = TrainPhnToEvalPhnMapping().get_dict()
+            true_labels.map_(true_labels, mapping.get)
+            predicted.map_(predicted, mapping.get)
+
+            total += true_labels.size(0)
+            correct += predicted.eq(true_labels).sum().item()
 
     # calculate the correct classfied
     score = correct / total
@@ -115,7 +128,7 @@ def train(train_loader, model, optimizer, scheduler=None, device="cuda"):
     total = 0
     correct = 0
 
-    for pack_inputs, pack_targets in train_loader:
+    for pack_inputs, pack_targets in tqdm(train_loader, desc="Train"):
         pack_inputs = pack_inputs.to(device)
         pack_targets = pack_targets.to(device)
 
