@@ -8,6 +8,7 @@ import os
 import numpy as np
 import torch
 from torch.nn.utils.rnn import pad_sequence
+from torch.nn.utils.rnn import pack_padded_sequence
 from torch.utils.data.dataset import Dataset
 from torch.utils.data import DataLoader
 
@@ -20,23 +21,28 @@ def pad_seqs_to_batch(batch):
 
     Usage:
     >>> loader = DataLoader(..., collate_fn=pad_seqs_to_batch)
-
+    >>> for pack_x, padded_labels in loader:
+    >>>     # do your work
     """
     # Let's assume that each element in "batch" is a list of tuple (data, label).
     # Sort the batch in the descending order
     sorted_batch = sorted(batch, key=lambda x: x[0].shape[0], reverse=True)
     sorted_sequences = []
     sorted_labels = []
+    sorted_seq_lens = []
     for seq, label in sorted_batch:
+        sorted_seq_lens.append(seq.shape[0])
         sorted_sequences.append(seq)
         sorted_labels.append(label)
 
     # Get each sequence and pad it
-    sequences_padded = pad_sequence(sorted_sequences)
+    seqs_padded = pad_sequence(sorted_sequences)
+    packed_seqs = pack_padded_sequence(seqs_padded, sorted_seq_lens)
 
     # As well as the lables
     labels_padded = pad_sequence(sorted_labels, padding_value=Config.label_pad_val)
-    return sequences_padded, labels_padded
+    packed_labels = pack_padded_sequence(labels_padded, sorted_seq_lens)
+    return packed_seqs, packed_labels
 
 class TIMITDataset(Dataset):
     SPLIT_TO_NPZ = {
