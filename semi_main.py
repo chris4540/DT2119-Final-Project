@@ -38,8 +38,8 @@ if __name__ == "__main__":
 
     # configuration
     # obtain part_labeled
-    Config.part_labeled = float(os.environ.get('part_labeled', None))
-    Config.temp = float(os.environ.get('temp', None))
+    Config.part_labeled = float(os.environ.get('part_labeled', Config.part_labeled))
+    Config.temp = float(os.environ.get('temp', Config.temp))
     print("========CONFIG===========")
     print("part_labeled = ", Config.part_labeled)
     print("temp = ", Config.temp)
