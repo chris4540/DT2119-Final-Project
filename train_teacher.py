@@ -84,7 +84,7 @@ if __name__ == "__main__":
             best_teacher = teacher.state_dict()
             corresp_test_acc = test_acc
             saving_dict = {
-                'epoch': epoch+1,
+                'epoch': epoch,
                 'state_dict': best_teacher,
                 'best_valid_acc': best_valid_acc,
                 'corresp_test_acc': corresp_test_acc

@@ -91,7 +91,7 @@ if __name__ == "__main__":
             corresp_test_acc = test_acc
 
             saving_dict = {
-                'epoch': epoch+1,
+                'epoch': epoch,
                 'state_dict': best_student,
                 'best_valid_acc': best_valid_acc,
                 'corresp_test_acc': corresp_test_acc
@@ -101,7 +101,11 @@ if __name__ == "__main__":
                 'student_plbl{plbl}_T{temp}.chkpt.tar'.format(
                     plbl=Config.part_labeled,
                     temp=Config.temp))
+
     print("Finish training student!")
     print(
-        "[Result][Student] Valid. Acc. : {vacc:.4f}% \t Test Acc.: {tacc:.4f}%".format(
-            vacc=best_valid_acc*100, tacc=corresp_test_acc*100))
+        "[Result][Student] Best epoch : {epoch} \t"
+        "Valid. Acc. : {vacc:.4f}% \t Test Acc.: {tacc:.4f}%".format(
+            epoch=saving_dict['epoch'],
+            vacc=best_valid_acc*100,
+            tacc=corresp_test_acc*100))
