@@ -135,6 +135,11 @@ if __name__ == "__main__":
 
     best_valid_acc = -np.inf
     for epoch in range(Config.n_epochs):
+        # train with labeled data (use only the input)
+        train_with_teacher_model(
+            lbl_trainloader, student, teacher, Config.temp,
+            optimizer, scheduler=scheduler, device=device)
+
         # train with teacher logits
         train_with_teacher_model(
             unlbl_trainloader, student, teacher, Config.temp,
