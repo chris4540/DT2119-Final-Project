@@ -85,31 +85,3 @@ class TIMITDataset(Dataset):
 
     def get_phone_to_idx(self):
         return self.phone_to_idx
-
-# if __name__ == "__main__":
-#     pass
-# # create train/val datasets
-# trainset = dogDataset(root='./dataset/dogsDataset',
-#                       split='train',
-#                       transform=train_transform)
-# valset = dogDataset(root='./dataset/dogsDataset',
-#                     split='test',
-#                     transform=val_transform)
-
-# # create train/val loaders
-# train_loader = DataLoader(dataset=trainset,
-#                           batch_size=16,
-#                           shuffle=True,
-#                           num_workers=4)
-# val_loader = DataLoader(dataset=valset,
-#                         batch_size=16,
-#                         shuffle=False,
-#                         num_workers=4)
-
-# # Get images and labels in a mini-batch of train_loader
-# for imgs, lbls in train_loader:
-#     print ('Size of image:', imgs.size())  # batch_size*3*224*224
-#     print ('Type of image:', imgs.dtype)   # float32
-#     print ('Size of label:', lbls.size())  # batch_size
-#     print ('Type of label:', lbls.dtype)   # int64(long)
-#     break
