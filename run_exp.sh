@@ -5,7 +5,7 @@
 #   Possible opts for temperature
 #       0.5, 1, 2, 4, 6, 8, 10
 # Setting of the precentage of the labeled data
-export part_labeled=0.3
+export part_labeled=0.5
 
 # train teacher
 python -u train_teacher.py | tee teacher_plbl_${part_labeled}.log
