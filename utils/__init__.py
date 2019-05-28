@@ -230,7 +230,8 @@ def get_kd_loss(student_logits, teacher_logits, seq_lens, temp):
     # get n_batchs
     n_batchs = student_logits.size(1)
 
-    # repad
+    # repad with zero s.t. two logtis has not different at those "masked"
+    # time and batch => contribute no loss
     student_logits = repad_batchout(student_logits, seq_lens)
     teacher_logits = repad_batchout(teacher_logits, seq_lens)
 

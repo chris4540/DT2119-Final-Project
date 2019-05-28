@@ -5,28 +5,25 @@ DT2119 Speech and Speaker Recognition Project
 Semi-supervised learning on frame-based phoneme classification
 
 ## Tasks
-- [ ] literatal study
-- [x] Proof-of-concept (Bi-LSTM, LSTM, autoencoder)
+- [ ] literatal study (CyclicLR)
+- [x] Proof-of-concept (Bi-LSTM, LSTM)
 - [x] Set the project objective
 - [x] Dataset selection
 - [x] Experiement design
 - [x] Feature extraction (closly related to labs)
-- [ ] Data loader and exp code
-- [ ] Model code implementations
+- [x] Data loader and exp code
+- [x] Model code implementations
 - [ ] Poster
 - [ ] Final Report and discussion
 
 ## Report infomation
-Link to report:
-https://www.overleaf.com/6637372248xzbwwqpjpdzj
+Link to [report](https://www.overleaf.com/6637372248xzbwwqpjpdzj)
 
 The peer review score is closely related to the course objective.
-Please read it on:
-https://www.kth.se/student/kurser/kurs/DT2119?l=en
+Please read it on [this](https://www.kth.se/student/kurser/kurs/DT2119?l=en)
 
 ## Dataset
 1. [TIMIT](https://github.com/philipperemy/timit)
-2. TIDIGIT (may not be able to use)
 
 ### TIMIT Dataset
 See section 3.4.3 for more info [doc](https://perso.limsi.fr/lamel/TIMIT_NISTIR4930.pdf)
