@@ -2,17 +2,19 @@
 #
 #  Script to pre-processing TIMIT dataset
 #
-#
 set -e
 
 export PYTHONPATH=`pwd`
 mkdir -p ./data/raw
 
-# Obtain whole training dataset
+# 1. Calcuate mfcc featrues from the whole training dataset (3696  sentances)
 python scripts/get_train_dataset.py
-# Selecting from it
+# 2. Select 184 sentences as validation set
 python scripts/get_val_sentences.py
-# Try to split them
+# 3. Split the sentences according to the list of sentences
+#    Normalize the training and validation set.
+#    Normalizer is calculated from splitted training set (3152 sentances)
 python scripts/split_val_train.py
-# Prepare the core test
+# 4. Calcuate mfcc featrues from core test and normalize it with the
+#    normalizer in stage 3.
 python scripts/get_core_test.py
