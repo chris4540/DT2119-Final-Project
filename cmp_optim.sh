@@ -1,5 +1,6 @@
 #!/bin/bash
-for part_labeled in 0.1 0.3; do
+# for part_labeled in 0.1 0.3; do
+for part_labeled in 0.3; do
     export part_labeled
     for optim in adam stepLR cyclicLR; do
         export optim
