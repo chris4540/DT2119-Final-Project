@@ -17,7 +17,7 @@ grep Loss ${root_dir}/experiment/cmp_optim_adam.log | awk '{print $6}' >> adam_l
 # stepLR_loss.txt
 echo "stepLR" > stepLR_loss.txt
 grep Loss ${root_dir}/experiment/cmp_optim_stepLR.log | awk '{print $6}' >> stepLR_loss.txt
-paste -d"," cyclicLR_loss.txt adam_loss.txt stepLR_loss.txt >> cmp_loss.csv
+paste -d"," cyclicLR_loss.txt adam_loss.txt stepLR_loss.txt > cmp_loss.csv
 rm cyclicLR_loss.txt adam_loss.txt stepLR_loss.txt
 # ==============================================================================
 # compare the training acc.
@@ -31,5 +31,5 @@ grep Train ${root_dir}/experiment/cmp_optim_adam.log | awk '{print $10}' >> adam
 # stepLR_tacc.txt
 echo "stepLR" > stepLR_tacc.txt
 grep Train ${root_dir}/experiment/cmp_optim_stepLR.log | awk '{print $10}' >> stepLR_tacc.txt
-paste -d"," cyclicLR_tacc.txt adam_tacc.txt stepLR_tacc.txt >> cmp_tacc.csv
+paste -d"," cyclicLR_tacc.txt adam_tacc.txt stepLR_tacc.txt > cmp_tacc.csv
 rm cyclicLR_tacc.txt adam_tacc.txt stepLR_tacc.txt
