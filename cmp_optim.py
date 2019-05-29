@@ -16,7 +16,7 @@ torch.manual_seed(100)
 
 class Config(config.Config):
     part_labeled = 0.3
-    optimization = "adam"
+    optim = "adam"
     adam_betas = (0.9, 0.999)  # for adam
     steplr_gamma = 0.1
     steplr_stepsize = 10
@@ -25,10 +25,10 @@ class Config(config.Config):
 if __name__ == "__main__":
 
     # configuration
-    Config.optimization = os.environ.get('optim', Config.optimization)
+    Config.optim = os.environ.get('optim', Config.optim)
     Config.part_labeled = float(os.environ.get('part_labeled', Config.part_labeled))
     print("========CONFIG===========")
-    print("optimization = ", Config.optimization)
+    print("optim = ", Config.optim)
     print("part_labeled = ", Config.part_labeled)
     print("========CONFIG===========")
 
@@ -71,21 +71,21 @@ if __name__ == "__main__":
     optimizer = optim.SGD(
             net.parameters(), lr=Config.init_lr, momentum=Config.momentum,
             weight_decay=Config.weight_decay)
-    if Config.optimization == "adam":
+    if Config.optim == "adam":
         optimizer = optim.Adam(net.parameters(),
             lr=Config.init_lr,
             betas=Config.adam_betas,
             weight_decay=Config.weight_decay)
         scheduler = None
-    elif Config.optimization == "stepLR":
+    elif Config.optim == "stepLR":
         scheduler = optim.lr_scheduler.StepLR(
             optimizer,
             step_size=Config.steplr_stepsize,
             gamma=Config.steplr_gamma)
     else:
         step_size = 2*np.int(np.floor(n_labels/Config.batch_size))
-        print("[baseline] CyclicLR step size = ", step_size)
-        print("[baseline] batch_size = ", Config.batch_size)
+        print("[cmpOptim] CyclicLR step size = ", step_size)
+        print("[cmpOptim] batch_size = ", Config.batch_size)
         scheduler = optim.lr_scheduler.CyclicLR(
             optimizer, Config.eta_min, Config.eta_max, step_size_up=step_size)
 
@@ -110,8 +110,9 @@ if __name__ == "__main__":
                 'corresp_test_acc': corresp_test_acc
             }
             torch.save(saving_dict,
-                Config.baseline_tar_fmt.format(
-                    plbl=Config.part_labeled))
+                Config.cmp_tar_fmt.format(
+                    plbl=Config.part_labeled,
+                    optim=Config.optim))
     # ========================================================================
     print("Finish training Baseline!")
     print(
