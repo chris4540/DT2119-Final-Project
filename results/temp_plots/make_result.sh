@@ -1,4 +1,6 @@
 #!/bin/bash
+# This script is to collect the validation acc. and test acc. from the log files
+# and translate them to csv
 set -e
 
 # mark the project root dir
@@ -7,6 +9,7 @@ valid_csv="valid_temp.csv"
 test_csv="test_temp.csv"
 
 
+# Create index
 echo "" > ${valid_csv}
 for part_labeled in 0.01 0.03 0.05 0.1 0.2 0.3 0.5; do
     echo $part_labeled >> $valid_csv
