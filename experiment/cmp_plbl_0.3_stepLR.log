@@ -1,5 +1,6 @@
 ========CONFIG===========
 optimization =  stepLR
+part_labeled =  0.3
 ========CONFIG===========
 Train Time used: 2 	 Loss: 1056.150 | Train Acc: 11.818% (37169/314517)
 Using the default mapping tsv

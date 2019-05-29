@@ -1,5 +1,6 @@
 ========CONFIG===========
 optimization =  adam
+part_labeled =  0.3
 ========CONFIG===========
 Train Time used: 2 	 Loss: 976.988 | Train Acc: 17.755% (55844/314517)
 Using the default mapping tsv
