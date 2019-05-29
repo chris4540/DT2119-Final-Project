@@ -1,7 +1,7 @@
 class Config:
     batch_size = 100
     n_epochs = 50
-    init_lr = 0.01  # this would not take effect as using cyclic lr
+    init_lr = 0.05  # this would not take effect as using cyclic lr
     momentum = 0.9
     weight_decay = 5e-4
     eta_min = 1e-5
