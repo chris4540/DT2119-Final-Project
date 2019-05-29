@@ -13,7 +13,7 @@ class Config:
     part_labeled = 0.3  # the percentage of labeled data
     n_features = 39
     n_classes = 48
-    n_hidden_nodes = n_classes*3//2
+    n_hidden_nodes = n_classes*2
     temp = 1
     teacher_tar_fmt = 'teacher_plbl{plbl}.tar'
     baseline_tar_fmt = 'baseline_plbl{plbl}.tar'
