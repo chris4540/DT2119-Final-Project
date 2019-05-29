@@ -116,7 +116,7 @@ if __name__ == "__main__":
     # ========================================================================
     print("Finish training Baseline!")
     print(
-        "[Result][Baseline] Best epoch : {epoch} \t"
+        "[Result][cmpOptim] Best epoch : {epoch} \t"
         "Valid. Acc. : {vacc:.4f}% \t Test Acc.: {tacc:.4f}%".format(
             epoch=saving_dict['epoch'],
             vacc=best_valid_acc*100,
