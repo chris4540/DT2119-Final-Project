@@ -26,8 +26,10 @@ if __name__ == "__main__":
 
     # configuration
     Config.optimization = os.environ.get('optim', Config.optimization)
+    Config.part_labeled = float(os.environ.get('part_labeled', Config.part_labeled))
     print("========CONFIG===========")
     print("optimization = ", Config.optimization)
+    print("part_labeled = ", Config.part_labeled)
     print("========CONFIG===========")
 
     #
