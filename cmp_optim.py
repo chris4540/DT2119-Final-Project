@@ -77,7 +77,9 @@ if __name__ == "__main__":
         scheduler = None
     elif Config.optimization == "stepLR":
         scheduler = optim.lr_scheduler.StepLR(
-            optimizer, step_size=30, gamma=0.1)
+            optimizer,
+            step_size=Config.steplr_stepsize,
+            gamma=Config.steplr_gamma)
     else:
         step_size = 2*np.int(np.floor(n_labels/Config.batch_size))
         print("[baseline] CyclicLR step size = ", step_size)
