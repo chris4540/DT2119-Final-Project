@@ -5,7 +5,7 @@
 #   Possible opts for temperature
 #       0.5, 1, 2, 4, 6, 8, 10
 # Setting of the precentage of the labeled data
-mkdir ./experiment
+mkdir -p ./experiment
 
 for part_labeled in 0.01 0.03 0.05 0.1 0.2 0.3 0.5; do
     export part_labeled

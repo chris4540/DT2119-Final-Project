@@ -1,5 +1,5 @@
 #!/bin/bash
-mkdir ./experiment
+mkdir -p ./experiment
 for part_labeled in 0.1 0.3; do
     export part_labeled
     for optim in adam stepLR cyclicLR; do
