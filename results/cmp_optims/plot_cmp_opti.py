@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.ticker as plticker
 
 def parse_percentage(df):
     for column in df:
@@ -47,5 +48,11 @@ if __name__ == "__main__":
 
     # plot
     ax = big_df.plot(kind='line', color=colors, style=styles)
+    ax.set_ylabel("Accuracy")
+    ax.set_xlabel("Epoch")
+    loc = plticker.MultipleLocator(base=.05) # this locator puts ticks at regular intervals
+    ax.yaxis.set_major_locator(loc)
+    #
     fig = ax.get_figure()
-    fig.savefig("cmp_optim.png", bbox_inches='tight', dpi=800)
+    fig.set_size_inches(12, 9)
+    fig.savefig("cmp_optim.png", bbox_inches='tight', dpi=400)

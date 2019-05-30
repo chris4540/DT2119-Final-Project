@@ -1,9 +1,11 @@
 import pandas as pd
+import matplotlib.ticker as plticker
 
 def parse_percentage(df):
     for column in df:
         df[column] = df[column].str.rstrip('%').astype('float') / 100.0
     return df
+
 if __name__ == "__main__":
     # make the teacher-student model with highest temp first
     t_s_valid_df = pd.read_csv("valid_temp.csv", index_col=0)
@@ -54,5 +56,9 @@ if __name__ == "__main__":
     ax.set_ylabel("Accuracy")
     ax.set_xlabel("% labeled samples")
     ax.set_xlim([0, None])
+    loc = plticker.MultipleLocator(base=.01) # this locator puts ticks at regular intervals
+    ax.yaxis.set_major_locator(loc)
     fig = ax.get_figure()
-    fig.savefig("cmp_acc.png", bbox_inches='tight', dpi=800)
+    fig.set_size_inches(12, 9)
+    ax.legend(loc='lower right')
+    fig.savefig("cmp_acc.png", bbox_inches='tight', dpi=400)

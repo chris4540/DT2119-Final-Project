@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.cm as cm
+import matplotlib.ticker as plticker
 
 def parse_percentage(df):
     for column in df:
@@ -51,7 +52,6 @@ if __name__ == "__main__":
     ax.set_ylabel("Accuracy")
     ax.set_xlabel("% labeled samples")
     ax.set_xlim([0, None])
-    import matplotlib.ticker as plticker
     loc = plticker.MultipleLocator(base=.01) # this locator puts ticks at regular intervals
     ax.yaxis.set_major_locator(loc)
     fig = ax.get_figure()
