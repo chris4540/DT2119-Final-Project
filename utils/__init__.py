@@ -182,7 +182,7 @@ def train_with_teacher_model(
         train_loader, model, teacher_model, temp, optimizer,
         scheduler=None, device="cuda"):
     """
-    Train with a probabilistic logits
+    Train with a probabilistic logits from teacher model
     """
 
     # switch to train mode
@@ -258,3 +258,51 @@ def repad_batchout(batch_out, seq_lengths, padding_val=0):
     # de-pack it and fill zeros
     ret, _ = pad_packed_sequence(pack, padding_value=padding_val)
     return ret
+
+
+def train_with_teacher_logits(
+        train_loader, model, target_logits, temp, optimizer,
+        scheduler=None, device="cuda"):
+    """
+    Train with a probabilistic logits
+    """
+
+    # switch to train mode
+    model.train()
+
+    start_time = time.time()
+    train_loss = 0
+
+    i = 0
+    for pack_inputs, _ in tqdm(train_loader, desc="Precal-LogitsTrain"):
+        _, seq_lens = pad_packed_sequence(pack_inputs)
+        pack_inputs = pack_inputs.to(device)
+
+        # get logist
+        target_logit = target_logits[i]
+
+        # compute output
+        output = model(pack_inputs)
+        loss = get_kd_loss(output, target_logit, seq_lens, temp=temp)
+
+        # compute gradient and do SGD step
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        loss = loss.float()
+
+        # measure accuracy and record loss
+        train_loss += loss.item()
+
+        i += 1
+        if isinstance(scheduler, CyclicLR):
+            scheduler.step()
+
+    if isinstance(scheduler, StepLR):
+        scheduler.step()
+
+    # print statistics
+    train_loss = train_loss / len(train_loader)
+    used_time = time.time() - start_time
+    print('LogitsTrain Time used: %d \t Loss: %.3f' % (used_time, train_loss))

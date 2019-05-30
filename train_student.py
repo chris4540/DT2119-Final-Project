@@ -6,7 +6,9 @@ import numpy as np
 import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 from utils import evalation
+from tqdm import tqdm
 from utils import train_with_teacher_model
+from utils import train_with_teacher_logits
 from utils.dataloader import TIMITDataset
 from utils.dataloader import pad_seqs_to_batch
 from models.lstm import LSTMClassifier
@@ -58,6 +60,18 @@ if __name__ == "__main__":
             n_class=Config.n_classes,
             n_hidden=Config.n_hidden_nodes, num_layers=3)
     student.to(device)
+    # ========================================================================
+    # Pre evaluate if not shuffle
+    if not Config.shuffle:
+        teacher.eval()
+        target_logist_list = []
+        with torch.no_grad():
+            for pack_inputs, _ in tqdm(trainloader, desc="TeacherTagging"):
+                target_logit = teacher(pack_inputs)
+                target_logist_list.append(target_logit)
+    else:
+        target_logist_list = None
+    # =======================================================================
 
     # make optimizer and scheduler
     step_size = 2*np.int(np.floor(len(traindata)/Config.batch_size))
@@ -71,9 +85,15 @@ if __name__ == "__main__":
     best_valid_acc = -np.inf
     for epoch in range(Config.n_epochs):
         # train with all data (use only the input)
-        train_with_teacher_model(
-            trainloader, student, teacher, Config.temp,
-            optimizer, scheduler=scheduler, device=device)
+        if Config.shuffle:
+            train_with_teacher_model(
+                trainloader, student, teacher, Config.temp,
+                optimizer, scheduler=scheduler, device=device)
+        else:
+            train_with_teacher_logits(
+                trainloader, student, target_logist_list, Config.temp,
+                optimizer, scheduler=scheduler, device=device)
+
 
         # evaluate it
         valid_acc = evalation(validloader, student, device=device, tag="Valid")
