@@ -20,10 +20,12 @@ if __name__ == "__main__":
     colors = []
     styles = dict()
     for c in big_df.columns:
+        # xkcd color style:
+        # https://xkcd.com/color/rgb/
         if "adam" in c:
             color = "xkcd:salmon"
         elif "stepLR" in c:
-            color = 'xkcd:mint green'
+            color = 'xkcd:azure'
         elif "cyclicLR" in c:
             color = "xkcd:blue purple"
         else:
