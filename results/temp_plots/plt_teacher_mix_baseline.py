@@ -55,4 +55,4 @@ if __name__ == "__main__":
     ax.set_xlabel("% labeled samples")
     ax.set_xlim([0, None])
     fig = ax.get_figure()
-    fig.savefig("cmp_acc.png", bbox_inches='tight')
+    fig.savefig("cmp_acc.png", bbox_inches='tight', dpi=800)
