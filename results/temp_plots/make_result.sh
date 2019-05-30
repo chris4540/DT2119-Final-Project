@@ -21,7 +21,7 @@ done
 cp $valid_csv $test_csv
 # =====================================================================
 
-for temp in 0.5 1 2 4 6 8 10; do
+for temp in 0.5 1 2 4 6 8 10 20 50 100 200 500 800; do
     echo $temp > valid_acc.txt
     echo $temp > test_acc.txt
     for part_labeled in 0.01 0.03 0.05 0.1 0.2 0.3 0.5; do

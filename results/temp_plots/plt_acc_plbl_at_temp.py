@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.cm as cm
 
-
 def parse_percentage(df):
     for column in df:
         df[column] = df[column].str.rstrip('%').astype('float') / 100.0
@@ -47,10 +46,14 @@ if __name__ == "__main__":
         # select color
         color = temp2color[col.split("= ")[-1]]
         colors.append(color)
+
     ax = big_df.plot(kind='line', style=styles, color=colors, marker='x')
     ax.set_ylabel("Accuracy")
     ax.set_xlabel("% labeled samples")
     ax.set_xlim([0, None])
+    import matplotlib.ticker as plticker
+    loc = plticker.MultipleLocator(base=.01) # this locator puts ticks at regular intervals
+    ax.yaxis.set_major_locator(loc)
     fig = ax.get_figure()
-    fig.set_size_inches(16, 12)
-    fig.savefig("temp_plot.png", bbox_inches='tight', dpi=800)
+    fig.set_size_inches(12, 9)
+    fig.savefig("temp_plot.png", bbox_inches='tight', dpi=400)
