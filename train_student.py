@@ -67,6 +67,7 @@ if __name__ == "__main__":
         target_logist_list = []
         with torch.no_grad():
             for pack_inputs, _ in tqdm(trainloader, desc="TeacherTagging"):
+                pack_inputs = pack_inputs.to(device)
                 target_logit = teacher(pack_inputs)
                 target_logist_list.append(target_logit)
     else:
