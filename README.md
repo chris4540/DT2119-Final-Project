@@ -17,7 +17,7 @@ Semi-supervised learning on frame-based phoneme classification
 - [ ] Final Report and discussion
 
 ## Report infomation
-Link to [report](https://www.overleaf.com/6637372248xzbwwqpjpdzj)
+Link to [report](./report/final_report.pdf)
 
 The peer review score is closely related to the course objective.
 Please read it on [this](https://www.kth.se/student/kurser/kurs/DT2119?l=en)
@@ -28,9 +28,9 @@ Please read it on [this](https://www.kth.se/student/kurser/kurs/DT2119?l=en)
 ### TIMIT Dataset
 See section 3.4.3 for more info [doc](https://perso.limsi.fr/lamel/TIMIT_NISTIR4930.pdf)
 
-#### Training and validation 
-Training + validation = 330 SX texts * 7 speakers + 1386 SI texts  
-validation = 184 sentences (unknown how to get it, random?)  
+#### Training and validation
+Training + validation = 330 SX texts * 7 speakers + 1386 SI texts
+validation = 184 sentences (unknown how to get it, random?)
 Therefore, training = 3696 - 184 = 3152 sentances
 
 #### Testing
