@@ -60,3 +60,6 @@ https://static.googleusercontent.com/media/research.google.com/ja//pubs/archive/
 https://github.com/snap-stanford/GraphRNN/blob/master/train.py
 
 https://www.codefull.net/2018/11/use-pytorchs-dataloader-with-variable-length-sequences-for-lstm-gru/
+
+### Preprocessing package
+https://github.com/jameslyons/python_speech_features
